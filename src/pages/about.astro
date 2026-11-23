@@ -1,0 +1,250 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Button from '../components/Button.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CTABand from '../components/CTABand.astro';
+import KimProfileVisual from '../components/KimProfileVisual.astro';
+import { site } from '../data/site';
+import { values, steps } from '../data/values';
+import { credibilityLine } from '../data/site';
+
+const { credentials } = site;
+
+const roles = [
+  {
+    icon: 'receipt',
+    title: 'Tax and compliance',
+    body: 'Returns prepared and reviewed by a registered tax practitioner, with SARS correspondence handled in writing and kept on file.',
+  },
+  {
+    icon: 'book',
+    title: 'Bookkeeping and reporting',
+    body: 'A bookkeeper owns the monthly close and reconciliations; the review before reporting is done by the practitioner accountable for your file.',
+  },
+  {
+    icon: 'stethoscope',
+    title: 'Medical billing',
+    body: 'A dedicated billing desk handles claims, rejections and remittances for practice clients, under the same confidentiality discipline as the rest of the file.',
+  },
+];
+---
+
+<BaseLayout
+  title="About Basebond Solutions — Registered Accountants & Tax Practitioners"
+  description="A South African accounting practice built around fixed schedules, documented work and a named practitioner for every client. Remote-first, nationwide."
+  path="/about"
+>
+  <section class="relative overflow-hidden bg-gradient-to-b from-ink to-charcoal py-16 text-cream lg:py-24">
+    <div class="pointer-events-none absolute -left-24 -bottom-28 h-[420px] w-[420px] opacity-[0.08]" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" class="h-full w-full">
+        <polygon points="90,20 180,180 10,180" stroke="#F5B800" stroke-width="1"></polygon>
+      </svg>
+    </div>
+    <div class="pointer-events-none absolute -right-32 -top-24 h-[460px] w-[460px] opacity-[0.08]" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" class="h-full w-full">
+        <polygon points="100,10 190,180 10,180" stroke="#F5B800" stroke-width="1.2"></polygon>
+      </svg>
+    </div>
+
+    <div class="container-page relative z-10">
+      <nav aria-label="Breadcrumb" class="mb-6 font-body text-[0.78rem] text-mist">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="hover:text-gold">Home</a></li>
+          <li aria-hidden="true" class="text-mist/40">/</li>
+          <li><span class="text-cream">About</span></li>
+        </ol>
+      </nav>
+
+      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
+        <div class="lg:col-span-7">
+          <span class="mb-3 block font-body text-eyebrow uppercase text-gold">The practice</span>
+          <h1 class="font-display text-display-lg text-cream">
+            A small practice built around the boring parts done properly.
+          </h1>
+          <p class="mt-5 font-body text-body-lg text-mist">
+            {credibilityLine}
+          </p>
+          <div class="mt-8 flex flex-wrap items-center gap-4">
+            <Button href="/contact" size="lg" icon="arrow-right">Speak to Kimberly</Button>
+            <Button href="/services" variant="outline-light" size="lg">Explore services</Button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-center lg:col-span-5">
+          <KimProfileVisual />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream py-16 text-ink lg:py-24">
+    <div class="container-page grid grid-cols-1 gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <div class="flex flex-col gap-4 font-body text-body-md text-slate">
+          <p>
+            Most accounting problems are not technical. They are scheduling problems. A
+            return filed a week late, a reconciliation skipped in a busy month, a payroll
+            run that nobody reviewed because the person who usually does it was away.
+          </p>
+          <p>
+            Basebond Solutions was built around that observation. Every client gets a
+            written scope, a fixed calendar, and a named practitioner who is accountable
+            for the file. Work is completed ahead of the deadline rather than on it,
+            because the last week before a deadline is exactly when nobody has time to
+            check anything.
+          </p>
+          <p>
+            We work remote-first across South Africa. Cloud accounting and secure document
+            sharing mean a business in Polokwane gets the same service quality as one in
+            Sandton, without paying for an office they never visit.
+          </p>
+          <p>
+            We are deliberately a small practice. That means we decline work we cannot do
+            well, and it means you deal with the person doing the work rather than an
+            account manager relaying messages.
+          </p>
+        </div>
+
+        <div class="mt-10 rounded-2xl border border-line-light bg-card p-7">
+          <div class="mb-3 flex items-center gap-2.5">
+            <Icon name="shield" size={18} class="text-gold-deep" />
+            <h2 class="font-body text-[0.95rem] font-semibold text-ink">Registration and credentials</h2>
+          </div>
+
+          {
+            credentials.verified ? (
+              <dl class="grid grid-cols-1 gap-3 font-body text-[0.86rem] sm:grid-cols-2">
+                {credentials.body && (
+                  <div>
+                    <dt class="text-[0.72rem] uppercase tracking-[0.12em] text-slate">Professional body</dt>
+                    <dd class="mt-0.5 font-semibold text-ink">
+                      {credentials.body}{credentials.bodyNumber ? ` · ${credentials.bodyNumber}` : ''}
+                    </dd>
+                  </div>
+                )}
+                {credentials.taxPractitioner && (
+                  <div>
+                    <dt class="text-[0.72rem] uppercase tracking-[0.12em] text-slate">SARS tax practitioner</dt>
+                    <dd class="mt-0.5 font-semibold text-ink">{credentials.taxPractitioner}</dd>
+                  </div>
+                )}
+                {credentials.companyReg && (
+                  <div>
+                    <dt class="text-[0.72rem] uppercase tracking-[0.12em] text-slate">Company registration</dt>
+                    <dd class="mt-0.5 font-semibold text-ink">{credentials.companyReg}</dd>
+                  </div>
+                )}
+                {credentials.vatRegistered && credentials.vat && (
+                  <div>
+                    <dt class="text-[0.72rem] uppercase tracking-[0.12em] text-slate">VAT number</dt>
+                    <dd class="mt-0.5 font-semibold text-ink">{credentials.vat}</dd>
+                  </div>
+                )}
+              </dl>
+            ) : (
+              <p class="font-body text-[0.88rem] leading-relaxed text-slate">
+                We are registered accountants and tax practitioners. Our professional body
+                registration, SARS tax practitioner number and CIPC company registration
+                are provided on request, and are included in every engagement letter. If
+                you need them before speaking to us, ask and we will send them.
+              </p>
+            )
+          }
+        </div>
+      </div>
+
+      <div class="lg:col-span-5">
+        <div class="rounded-2xl border border-line-dark bg-ink p-7 text-cream">
+          <span class="mb-4 block font-body text-[0.65rem] font-bold uppercase tracking-[0.16em] text-gold">
+            At a glance
+          </span>
+          <dl class="flex flex-col divide-y divide-line-dark">
+            {
+              [
+                ['Based in', `${site.location.city}, ${site.location.province}`],
+                ['Serving', 'All nine provinces, remote-first'],
+                ['Hours', site.hours],
+                ['Reply time', 'Within one business day'],
+                ['Engagement', 'Written scope, month to month'],
+              ].map(([label, value]) => (
+                <div class="flex items-start justify-between gap-4 py-3">
+                  <dt class="font-body text-[0.78rem] text-mist">{label}</dt>
+                  <dd class="text-right font-body text-[0.82rem] font-semibold text-cream">{value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <div class="mt-5">
+            <Button href="/contact" size="md" fullWidth icon="arrow-right">Book a free consultation</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-line-dark bg-charcoal py-16 text-cream lg:py-24">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Our standard"
+        title="Three commitments we hold ourselves to."
+        theme="dark"
+        class="mb-10"
+      />
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
+        {
+          values.map((value) => (
+            <div class="rounded-2xl border border-line-dark bg-ink p-7">
+              <span class="mb-5 flex h-11 w-11 items-center justify-center rounded-full bg-charcoal text-gold">
+                <Icon name={value.icon} size={19} />
+              </span>
+              <h3 class="font-display text-[1.15rem] font-semibold text-cream">{value.title}</h3>
+              <p class="mt-2 font-body text-[0.88rem] leading-relaxed text-mist">{value.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream py-16 text-ink lg:py-24">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="How we're structured"
+        title="Who does what on your file."
+        intro="A named practitioner is accountable for your file. Depending on the services you take, the day-to-day work is shared across three functions."
+        class="mb-10"
+      />
+      <div class="grid grid-cols-1 gap-5 lg:grid-cols-3">
+        {
+          roles.map((role) => (
+            <div class="rounded-2xl border border-line-light bg-card p-7">
+              <span class="mb-5 flex h-11 w-11 items-center justify-center rounded-full bg-ink text-gold">
+                <Icon name={role.icon} size={19} />
+              </span>
+              <h3 class="font-body text-[0.95rem] font-semibold text-ink">{role.title}</h3>
+              <p class="mt-2 font-body text-[0.86rem] leading-relaxed text-slate">{role.body}</p>
+            </div>
+          ))
+        }
+      </div>
+
+      <div class="mt-12">
+        <h2 class="font-display text-headline-md text-ink">How onboarding runs</h2>
+        <div class="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+          {
+            steps.map((step) => (
+              <div class="flex flex-col gap-2 rounded-xl border border-line-light bg-card p-5">
+                <span class="font-mono text-[0.72rem] text-gold-deep">{step.number}</span>
+                <h3 class="font-body text-[0.92rem] font-semibold text-ink">{step.title}</h3>
+                <p class="font-body text-[0.82rem] leading-relaxed text-slate">{step.body}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

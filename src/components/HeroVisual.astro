@@ -1,0 +1,172 @@
+---
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+---
+
+<div class="relative mx-auto hidden h-[560px] w-full max-w-[640px] items-center justify-center lg:flex">
+  <div
+    class="pointer-events-none absolute h-[380px] w-[380px] rounded-full bg-gold/15 blur-3xl"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div
+    class="animate-orbit pointer-events-none absolute h-[240px] w-[240px] rounded-full border border-cream/12"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="animate-orbit-rev pointer-events-none absolute h-[390px] w-[390px] rounded-full border border-cream/12"
+    aria-hidden="true"
+  >
+  </div>
+  <div
+    class="animate-orbit pointer-events-none absolute h-[530px] w-[530px] rounded-full border border-cream/10"
+    aria-hidden="true"
+  >
+  </div>
+
+  <svg
+    viewBox="0 0 640 560"
+    fill="none"
+    class="pointer-events-none absolute inset-0 h-full w-full"
+    aria-hidden="true"
+  >
+    <g stroke="#FAF8F3" stroke-opacity="0.2" stroke-width="1.1" stroke-dasharray="3 6">
+      <line x1="320" y1="280" x2="120" y2="80"></line>
+      <line x1="320" y1="280" x2="85" y2="285"></line>
+      <line x1="320" y1="280" x2="545" y2="205"></line>
+      <line x1="320" y1="280" x2="530" y2="495"></line>
+      <line x1="320" y1="280" x2="110" y2="500"></line>
+      <line x1="320" y1="280" x2="550" y2="60"></line>
+    </g>
+  </svg>
+
+  <!-- Centre hub -->
+  <div
+    class="relative z-20 flex h-[92px] w-[92px] items-center justify-center rounded-2xl border border-gold/60 bg-charcoal shadow-2xl shadow-black/60"
+  >
+    <div class="pointer-events-none absolute inset-0 rounded-2xl bg-gold/10 blur-md" aria-hidden="true"></div>
+    <Logo height={42} mark variant="dark" alt="" class="relative z-10" />
+  </div>
+
+  <!-- 1. Monthly close -->
+  <div class="absolute left-0 top-0 z-30 w-[236px] animate-drift" style="animation-delay: 0ms;">
+    <div class="rounded-xl border border-line-light bg-card p-4 text-ink shadow-2xl shadow-black/50">
+      <div class="mb-3 flex items-center justify-between gap-2">
+        <span class="font-mono text-[0.62rem] uppercase tracking-[0.14em] text-slate">
+          Monthly close
+        </span>
+        <span class="rounded-full bg-gold-soft px-2 py-0.5 font-body text-[0.58rem] font-bold uppercase tracking-[0.1em] text-gold-deep">
+          On track
+        </span>
+      </div>
+      <ul class="flex flex-col gap-1.5">
+        {
+          ['Bank reconciled', 'VAT201 prepared', 'Payroll processed'].map((item) => (
+            <li class="flex items-center gap-2">
+              <span class="flex h-4 w-4 items-center justify-center rounded-full bg-success text-white">
+                <Icon name="check" size={10} strokeWidth={3} />
+              </span>
+              <span class="font-body text-[0.72rem] text-ink">{item}</span>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <!-- 2. VAT201 -->
+  <div class="absolute left-0 top-[44%] z-30 w-[172px] animate-drift" style="animation-delay: 900ms;">
+    <div class="rounded-xl border border-line-light bg-cream p-3.5 text-ink shadow-2xl shadow-black/50">
+      <div class="mb-2.5 flex items-center justify-between gap-2">
+        <span class="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-slate">VAT201</span>
+        <span class="flex h-4 w-4 items-center justify-center rounded-full bg-success text-white">
+          <Icon name="check" size={10} strokeWidth={3} />
+        </span>
+      </div>
+      <div class="mb-2.5 flex flex-col gap-1.5" aria-hidden="true">
+        <div class="h-1.5 w-full rounded-sm bg-line-light"></div>
+        <div class="h-1.5 w-4/5 rounded-sm bg-line-light"></div>
+        <div class="h-1.5 w-3/5 rounded-sm bg-line-light"></div>
+      </div>
+      <span class="font-body text-[0.72rem] font-semibold text-ink">Return prepared</span>
+    </div>
+  </div>
+
+  <!-- 3. Payroll -->
+  <div class="absolute right-0 top-[30%] z-30 w-[186px] animate-drift" style="animation-delay: 1400ms;">
+    <div class="relative">
+      <div class="translate-x-1.5 -translate-y-1.5 rounded-xl border border-line-light bg-tint p-3 shadow-lg">
+        <span class="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-slate">EMP201</span>
+      </div>
+      <div class="relative z-10 -mt-3 rounded-xl border border-line-light bg-card p-3.5 text-ink shadow-2xl shadow-black/50">
+        <div class="mb-2 flex items-center justify-between gap-2">
+          <span class="font-body text-[0.72rem] font-semibold text-ink">Payroll processed</span>
+          <span class="rounded-full bg-gold px-2 py-0.5 font-body text-[0.55rem] font-bold uppercase tracking-[0.1em] text-ink">
+            Filed
+          </span>
+        </div>
+        <div class="flex items-center gap-1.5">
+          <span class="flex h-4 w-4 items-center justify-center rounded-full bg-success text-white">
+            <Icon name="check" size={10} strokeWidth={3} />
+          </span>
+          <span class="font-body text-[0.66rem] text-slate">12 employees · PAYE, UIF, SDL</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. Management accounts -->
+  <div class="absolute bottom-0 right-0 z-30 w-[214px] animate-drift" style="animation-delay: 2200ms;">
+    <div class="rounded-xl border border-line-light bg-card p-4 text-ink shadow-2xl shadow-black/50">
+      <div class="mb-2 flex items-center justify-between gap-2">
+        <span class="font-mono text-[0.6rem] uppercase tracking-[0.14em] text-slate">
+          Management accounts
+        </span>
+        <span class="flex items-center gap-1 font-body text-[0.62rem] font-semibold text-success">
+          <Icon name="trending-up" size={12} />
+          P&amp;L
+        </span>
+      </div>
+      <svg viewBox="0 0 180 46" fill="none" class="h-10 w-full" aria-hidden="true">
+        <path d="M0 40 L36 34 L72 37 L108 22 L144 24 L180 10 L180 46 L0 46 Z" fill="#F5B800" fill-opacity="0.18"></path>
+        <path d="M0 40 L36 34 L72 37 L108 22 L144 24 L180 10" stroke="#F5B800" stroke-width="2.4" stroke-linecap="round"></path>
+      </svg>
+      <span class="mt-1 block font-body text-[0.66rem] text-slate">
+        Delivered on a fixed date each month
+      </span>
+    </div>
+  </div>
+
+  <!-- 5. Compliance calendar -->
+  <div class="absolute bottom-2 left-2 z-30 w-[210px] animate-drift" style="animation-delay: 600ms;">
+    <div class="rounded-xl border border-line-light bg-card p-4 text-ink shadow-2xl shadow-black/50">
+      <div class="mb-2 flex items-center gap-2">
+        <span class="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-gold">
+          <Icon name="calendar" size={13} />
+        </span>
+        <span class="font-body text-[0.72rem] font-semibold text-ink">Compliance calendar</span>
+      </div>
+      <p class="font-body text-[0.66rem] leading-snug text-slate">
+        Every statutory deadline tracked in one schedule.
+      </p>
+    </div>
+  </div>
+
+  <!-- 6. Medical billing -->
+  <div class="absolute right-0 top-0 z-30 w-[182px] animate-drift" style="animation-delay: 1800ms;">
+    <div class="rounded-xl border border-line-light bg-card p-3.5 text-ink shadow-2xl shadow-black/50">
+      <div class="mb-1.5 flex items-center justify-between">
+        <span class="flex h-6 w-6 items-center justify-center rounded-full bg-ink text-gold">
+          <Icon name="stethoscope" size={13} />
+        </span>
+        <span class="rounded-full bg-gold-soft px-2 py-0.5 font-body text-[0.55rem] font-bold uppercase tracking-[0.1em] text-gold-deep">
+          Medical
+        </span>
+      </div>
+      <span class="block font-body text-[0.72rem] font-semibold text-ink">Claims tracked</span>
+      <span class="mt-0.5 block font-body text-[0.64rem] text-slate">Submission to remittance</span>
+    </div>
+  </div>
+</div>

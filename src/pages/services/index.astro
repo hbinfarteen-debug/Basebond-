@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceCard from '../../components/ServiceCard.astro';
+import Icon from '../../components/Icon.astro';
+import Button from '../../components/Button.astro';
+import CTABand from '../../components/CTABand.astro';
+import { services } from '../../data/services';
+import { whatsappLink } from '../../data/site';
+---
+
+<BaseLayout
+  title="Services — Tax, Payroll, Bookkeeping & Medical Billing | Basebond Solutions"
+  description="Tax, payroll, bookkeeping, CIPC, management accounts, business support, year-end reporting and medical billing for South African businesses."
+  path="/services"
+>
+  <section class="relative overflow-hidden bg-gradient-to-b from-ink to-charcoal py-16 text-cream lg:py-20">
+    <div class="pointer-events-none absolute -right-32 -top-24 h-[420px] w-[420px] opacity-[0.08]" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" class="h-full w-full">
+        <polygon points="100,10 190,180 10,180" stroke="#F5B800" stroke-width="1.2"></polygon>
+      </svg>
+    </div>
+
+    <div class="container-page relative z-10">
+      <nav aria-label="Breadcrumb" class="mb-6 font-body text-[0.78rem] text-mist">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="hover:text-gold">Home</a></li>
+          <li aria-hidden="true" class="text-mist/40">/</li>
+          <li><span class="text-cream">Services</span></li>
+        </ol>
+      </nav>
+
+      <div class="max-w-2xl">
+        <span class="mb-3 block font-body text-eyebrow uppercase text-gold">Comprehensive practice</span>
+        <h1 class="font-display text-display-lg text-cream">
+          Eight services. One practitioner who knows your file.
+        </h1>
+        <p class="mt-4 font-body text-body-lg text-mist">
+          Start with one function or hand over the whole back office. Each service is
+          scoped, priced and reported separately, so you always know what is being done
+          and when.
+        </p>
+        <div class="mt-7 flex flex-wrap gap-3">
+          <Button href="/contact" size="lg" icon="arrow-right">Book a free consultation</Button>
+          <Button
+            href={whatsappLink('Hi Basebond Solutions, I would like help choosing the right service.')}
+            variant="outline-light"
+            size="lg"
+            icon="whatsapp"
+            iconRight={false}
+            external
+          >
+            Ask which I need
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream py-16 text-ink lg:py-24">
+    <div class="container-page">
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {services.map((service) => <ServiceCard service={service} />)}
+      </div>
+
+      <div class="mt-14 flex flex-col items-start gap-4 rounded-2xl border border-line-light bg-tint p-7 sm:flex-row sm:items-center sm:justify-between">
+        <div class="flex items-start gap-4">
+          <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-gold">
+            <Icon name="headset" size={19} />
+          </span>
+          <div>
+            <h2 class="font-body text-[1rem] font-semibold text-ink">Not sure where you fit?</h2>
+            <p class="mt-1 max-w-xl font-body text-[0.88rem] text-slate">
+              Most clients start with a free review of their SARS and CIPC standing. We
+              tell you what is actually urgent and what can wait.
+            </p>
+          </div>
+        </div>
+        <Button href="/contact" variant="dark" size="md" icon="arrow-right">Get a free review</Button>
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

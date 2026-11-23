@@ -1,0 +1,28 @@
+---
+import Icon from './Icon.astro';
+import { whatsappLink } from '../data/site';
+---
+
+<div
+  class="fixed inset-x-0 bottom-0 z-40 border-t border-line-dark bg-ink/95 backdrop-blur-md lg:hidden"
+  style="padding-bottom: env(safe-area-inset-bottom);"
+>
+  <div class="container-page flex items-center gap-2 py-2.5">
+    <a
+      href="/contact"
+      class="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-gold px-4 py-3 font-body text-[0.85rem] font-semibold text-ink"
+    >
+      Book a consultation
+      <Icon name="arrow-right" size={16} />
+    </a>
+    <a
+      href={whatsappLink()}
+      class="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-cream/20 text-cream"
+      aria-label="Message us on WhatsApp"
+      rel="noopener noreferrer"
+      target="_blank"
+    >
+      <Icon name="whatsapp" size={20} />
+    </a>
+  </div>
+</div>

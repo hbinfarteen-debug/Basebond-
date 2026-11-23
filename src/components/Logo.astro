@@ -1,0 +1,35 @@
+---
+interface Props {
+  /** Rendered height in px. Width follows the artwork's aspect ratio. */
+  height?: number;
+  /** The surface the logo sits on — picks the dark- or light-background artwork. */
+  variant?: 'dark' | 'light';
+  /** Show only the triangular mark, without the BASEBOND SOLUTIONS lockup. */
+  mark?: boolean;
+  /** Accessible name. Pass "" when the mark sits beside a text wordmark. */
+  alt?: string;
+  class?: string;
+}
+
+const {
+  height = 40,
+  variant = 'dark',
+  mark = false,
+  alt = 'Basebond Solutions',
+  class: className = '',
+} = Astro.props;
+
+const src = `/brand/${mark ? 'mark' : 'logo'}-on-${variant}.png`;
+const ratio = mark ? 378 / 420 : 760 / 318;
+const width = Math.round(height * ratio);
+---
+
+<img
+  src={src}
+  width={width}
+  height={height}
+  alt={alt}
+  class={className}
+  aria-hidden={alt ? undefined : 'true'}
+  decoding="async"
+/>

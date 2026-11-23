@@ -1,0 +1,17 @@
+{
+  "name": "Basebond Solutions",
+  "short_name": "Basebond",
+  "description": "Registered accountants and tax practitioners serving South African SMEs and private medical practices.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0b0b0c",
+  "theme_color": "#0b0b0c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

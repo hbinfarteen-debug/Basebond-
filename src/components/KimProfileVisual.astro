@@ -1,0 +1,132 @@
+---
+interface Props {
+  name?: string;
+  role?: string;
+  class?: string;
+}
+
+const {
+  name = 'Kimberly Nkomo',
+  role = 'Managing Director',
+  class: className = '',
+} = Astro.props;
+---
+
+<div class={`kim-profile-card relative mx-auto flex w-full max-w-[420px] flex-col items-center select-none ${className}`}>
+  <!-- Ambient Gold Glows Behind Card -->
+  <div
+    class="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 h-[280px] w-[340px] rounded-full bg-gradient-to-tr from-gold/20 via-gold/10 to-transparent blur-[70px]"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Decorative Basebond Logo Triangle Behind Profile -->
+  <div class="pointer-events-none absolute -right-6 -top-8 h-[240px] w-[240px] opacity-[0.14]" aria-hidden="true">
+    <svg viewBox="0 0 200 200" fill="none" class="h-full w-full">
+      <polygon points="100,10 190,180 10,180" stroke="#F5B800" stroke-width="1.4" stroke-dasharray="4 6"></polygon>
+      <polygon points="110,25 185,175 35,175" stroke="#F5B800" stroke-width="0.9"></polygon>
+    </svg>
+  </div>
+
+  <!-- Main Glassmorphic Profile Card -->
+  <div
+    class="relative z-10 w-full rounded-3xl border border-white/12 bg-gradient-to-b from-[#18181D]/88 via-[#121215]/92 to-[#0C0C0E]/95 p-6 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)] backdrop-blur-xl"
+  >
+    <!-- Soft Outer Card Glow -->
+    <div
+      class="pointer-events-none absolute -inset-[1px] -z-10 rounded-3xl bg-gradient-to-b from-gold/20 via-white/5 to-transparent opacity-60 blur-sm"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Top Status Badge -->
+    <div class="mb-5 flex items-center justify-between border-b border-white/8 pb-3.5">
+      <div class="flex items-center gap-2">
+        <span class="inline-block h-2 w-2 rounded-full bg-gold animate-pulse"></span>
+        <span class="font-mono text-[0.62rem] font-bold uppercase tracking-[0.18em] text-gold">
+          Practice Leadership
+        </span>
+      </div>
+      <span class="rounded-full border border-white/10 bg-white/[0.04] px-2.5 py-0.5 font-mono text-[0.58rem] uppercase tracking-wider text-mist">
+        Lead Practitioner
+      </span>
+    </div>
+
+    <!-- Profile Photo Container with Golden Ring & Glass Aura -->
+    <div class="relative mx-auto mb-5 flex justify-center">
+      <!-- Layered Rotating/Pulsing Aura Rings -->
+      <div class="absolute -inset-2 rounded-full bg-gradient-to-tr from-gold/30 via-transparent to-gold/20 blur-md opacity-70"></div>
+      
+      <div class="relative flex h-[190px] w-[190px] sm:h-[210px] sm:w-[210px] items-center justify-center rounded-full border-2 border-gold/60 bg-gradient-to-b from-[#222228] to-[#121215] p-1.5 shadow-[0_0_35px_rgba(245,184,0,0.28)]">
+        <div class="h-full w-full overflow-hidden rounded-full bg-[#18181D]">
+          <img
+            src="/images/kim-pic.svg"
+            alt={`${name} — ${role}`}
+            class="h-full w-full object-cover object-top filter contrast-[1.04] brightness-[1.02] transition-transform duration-500 hover:scale-105"
+            loading="eager"
+            fetchpriority="high"
+          />
+        </div>
+
+        <!-- Verified Check Pill Attached to Photo -->
+        <div
+          class="absolute bottom-1 right-2 flex h-7 w-7 items-center justify-center rounded-full border-2 border-charcoal bg-gold text-ink shadow-[0_0_12px_rgba(245,184,0,0.5)]"
+          title="Verified SARS Tax Practitioner"
+        >
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3">
+            <path d="M20 6L9 17l-5-5"></path>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <!-- Leadership Details & Typography -->
+    <div class="text-center">
+      <span class="font-mono text-[0.68rem] font-bold uppercase tracking-[0.18em] text-gold">
+        {role}
+      </span>
+      <h3 class="mt-1 font-display text-[1.45rem] font-semibold tracking-tight text-cream">
+        {name}
+      </h3>
+      <p class="mt-1 font-body text-[0.8rem] text-mist/90">
+        Accountable for every client engagement & file review
+      </p>
+    </div>
+
+    <!-- Credentials / Values Micro-Pills -->
+    <div class="mt-4 flex flex-wrap items-center justify-center gap-2 border-t border-white/8 pt-4">
+      <span class="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-body text-[0.72rem] text-mist">
+        <span class="h-1.5 w-1.5 rounded-full bg-success"></span>
+        SARS Registered
+      </span>
+      <span class="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-body text-[0.72rem] text-mist">
+        <span class="h-1.5 w-1.5 rounded-full bg-gold"></span>
+        Remote-First SA
+      </span>
+      <span class="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/[0.03] px-3 py-1 font-body text-[0.72rem] text-mist">
+        <span class="h-1.5 w-1.5 rounded-full bg-gold"></span>
+        Named Practitioner
+      </span>
+    </div>
+  </div>
+</div>
+
+<style>
+  @keyframes kimCardFloat {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-8px);
+    }
+  }
+
+  .kim-profile-card {
+    animation: kimCardFloat 6s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .kim-profile-card {
+      animation: none !important;
+    }
+  }
+</style>
+

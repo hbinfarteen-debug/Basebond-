@@ -1,0 +1,85 @@
+---
+import LegalShell from '../components/LegalShell.astro';
+import { site } from '../data/site';
+---
+
+<LegalShell
+  title="PAIA Manual — Basebond Solutions"
+  heading="PAIA Manual"
+  updated="21 November 2026"
+  path="/paia"
+  description="Manual prepared in terms of section 51 of the Promotion of Access to Information Act 2 of 2000."
+  intro="This manual is published in terms of section 51 of the Promotion of Access to Information Act 2 of 2000 (PAIA)."
+>
+  <h2>1. Particulars of the body</h2>
+  <ul>
+    <li><strong>Name:</strong> {site.legalName}</li>
+    <li><strong>Registered address:</strong> {site.location.street}, {site.location.city}, {site.location.province}, {site.location.country}</li>
+    <li><strong>Information Officer:</strong> the Information Officer, reachable at <a href={`mailto:${site.email}`}>{site.email}</a></li>
+    <li><strong>Website:</strong> <a href={site.url}>{site.url}</a></li>
+  </ul>
+
+  <h2>2. Guide on how to use PAIA</h2>
+  <p>
+    The Information Regulator has published a guide on how to use the Act. It is
+    available from the Information Regulator at
+    <a href="https://inforegulator.org.za" rel="noopener noreferrer" target="_blank">inforegulator.org.za</a>.
+    A copy may also be requested from our Information Officer.
+  </p>
+
+  <h2>3. Records available without a request</h2>
+  <p>
+    The following records are generally available on request without a formal PAIA
+    application: published service information and pricing, our privacy notice and this
+    manual, and general marketing material.
+  </p>
+
+  <h2>4. Records held</h2>
+  <p>Subject to the Act, the body holds records in the following categories:</p>
+  <ul>
+    <li>Company statutory records, including registration and beneficial ownership records.</li>
+    <li>Client engagement records: mandates, correspondence, financial records, tax submissions, payroll records and billing records.</li>
+    <li>Personnel and contractor records.</li>
+    <li>Financial and accounting records of the practice.</li>
+    <li>Information technology and security records.</li>
+  </ul>
+
+  <h2>5. How to request access</h2>
+  <p>
+    Requests must be made on the prescribed form (Form 2 of the PAIA regulations) and
+    submitted to the Information Officer at <a href={`mailto:${site.email}`}>{site.email}</a>.
+    The request must identify the record sought, the form of access required, and include
+    sufficient detail to identify you and your right of access.
+  </p>
+  <p>
+    We will respond within 30 days, unless an extension is permitted under the Act. Where
+    a request is refused, we will give reasons and inform you of your right to lodge a
+    complaint with the Information Regulator or to apply to court.
+  </p>
+
+  <h2>6. Fees</h2>
+  <p>
+    A request fee and, where applicable, an access fee are payable in accordance with the
+    PAIA regulations. We will notify you of the amount before processing the request.
+  </p>
+
+  <h2>7. Grounds for refusal</h2>
+  <p>
+    Access may be refused where a ground in Chapter 4 of the Act applies, including where
+    disclosure would breach a duty of confidence owed to a third party, prejudice a
+    commercial interest, or disclose information protected under POPIA without the data
+    subject's consent.
+  </p>
+
+  <h2>8. Remedies</h2>
+  <p>
+    If you are dissatisfied with our decision, you may complain to the Information
+    Regulator or apply to a court for appropriate relief.
+  </p>
+
+  <h2>9. Availability of the manual</h2>
+  <p>
+    This manual is available on this website and on request from the Information Officer.
+    It is updated as required by the Act.
+  </p>
+</LegalShell>

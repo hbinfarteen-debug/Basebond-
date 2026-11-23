@@ -1,0 +1,288 @@
+---
+import Icon from './Icon.astro';
+import { services } from '../data/services';
+import { site } from '../data/site';
+
+interface Props {
+  /** Preselect a service (used on service detail pages). */
+  defaultService?: string;
+  compact?: boolean;
+}
+
+const { defaultService, compact = false } = Astro.props;
+
+const inputClass =
+  'w-full rounded-xl border border-line-light bg-card px-4 py-3 font-body text-[0.92rem] text-ink placeholder:text-slate/60 transition-colors focus:border-gold-deep focus:outline-none focus:ring-0';
+const labelClass = 'mb-1.5 block font-body text-[0.78rem] font-semibold text-ink';
+---
+
+<form
+  id="contact-form"
+  class="flex flex-col gap-5"
+  data-contact-form
+  novalidate
+>
+  <input type="hidden" name="startedAt" value={Date.now()} />
+
+  <!-- Honeypot: real people never fill this. -->
+  <div class="absolute -left-[9999px] top-auto h-px w-px overflow-hidden" aria-hidden="true">
+    <label for="cf-website">Website</label>
+    <input id="cf-website" type="text" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+    <div>
+      <label for="cf-name" class={labelClass}>Your name <span class="text-danger">*</span></label>
+      <input
+        id="cf-name"
+        name="name"
+        type="text"
+        autocomplete="name"
+        required
+        class={inputClass}
+        placeholder="Thabo Mokoena"
+        aria-describedby="cf-name-error"
+      />
+      <p id="cf-name-error" class="mt-1 hidden font-body text-[0.75rem] text-danger"></p>
+    </div>
+
+    <div>
+      <label for="cf-business" class={labelClass}>Business name</label>
+      <input
+        id="cf-business"
+        name="business"
+        type="text"
+        autocomplete="organization"
+        class={inputClass}
+        placeholder="Optional"
+      />
+    </div>
+
+    <div>
+      <label for="cf-email" class={labelClass}>Email <span class="text-danger">*</span></label>
+      <input
+        id="cf-email"
+        name="email"
+        type="email"
+        autocomplete="email"
+        required
+        class={inputClass}
+        placeholder="you@company.co.za"
+        aria-describedby="cf-email-error"
+      />
+      <p id="cf-email-error" class="mt-1 hidden font-body text-[0.75rem] text-danger"></p>
+    </div>
+
+    <div>
+      <label for="cf-phone" class={labelClass}>Phone or WhatsApp <span class="text-danger">*</span></label>
+      <input
+        id="cf-phone"
+        name="phone"
+        type="tel"
+        autocomplete="tel"
+        required
+        class={inputClass}
+        placeholder="082 000 0000"
+        aria-describedby="cf-phone-error"
+      />
+      <p id="cf-phone-error" class="mt-1 hidden font-body text-[0.75rem] text-danger"></p>
+    </div>
+  </div>
+
+  <div>
+    <label for="cf-service" class={labelClass}>What do you need help with? <span class="text-danger">*</span></label>
+    <select
+      id="cf-service"
+      name="service"
+      required
+      class={inputClass}
+      aria-describedby="cf-service-error"
+    >
+      <option value="">Select a service</option>
+      {services.map((service) => (
+        <option value={service.name} selected={service.name === defaultService}>
+          {service.name}
+        </option>
+      ))}
+      <option value="Not sure yet" selected={!defaultService}>Not sure yet — please advise</option>
+    </select>
+    <p id="cf-service-error" class="mt-1 hidden font-body text-[0.75rem] text-danger"></p>
+  </div>
+
+  <div>
+    <label for="cf-message" class={labelClass}>Tell us briefly where things stand <span class="text-danger">*</span></label>
+    <textarea
+      id="cf-message"
+      name="message"
+      rows={compact ? 3 : 5}
+      required
+      class={inputClass}
+      placeholder="e.g. We are a 6-person practice, two years behind on claims, and our VAT returns are current."
+      aria-describedby="cf-message-error"
+    ></textarea>
+    <p id="cf-message-error" class="mt-1 hidden font-body text-[0.75rem] text-danger"></p>
+  </div>
+
+  <div>
+    <label for="cf-consent" class="flex items-start gap-3 font-body text-[0.82rem] leading-relaxed text-slate">
+      <input
+        id="cf-consent"
+        name="consent"
+        type="checkbox"
+        required
+        class="mt-0.5 h-4 w-4 shrink-0 rounded border-line-light text-gold-deep focus:ring-0"
+        aria-describedby="cf-consent-error"
+      />
+      <span>
+        I agree that {site.name} may process these details to respond to my enquiry, in line with the
+        <a href="/privacy" class="font-semibold text-gold-deep underline underline-offset-2">privacy notice</a>.
+      </span>
+    </label>
+    <p id="cf-consent-error" class="mt-1 hidden font-body text-[0.75rem] text-danger"></p>
+  </div>
+
+  <button
+    type="submit"
+    class="inline-flex items-center justify-center gap-2 rounded-full bg-ink px-7 py-3.5 font-body text-label font-semibold text-cream transition-colors hover:bg-charcoal disabled:cursor-not-allowed disabled:opacity-60"
+  >
+    <span data-submit-label>Send enquiry</span>
+    <Icon name="arrow-right" size={17} />
+  </button>
+
+  <p class="font-body text-[0.78rem] text-slate">
+    {site.responsePromise} Prefer to chat? Message us on
+    <a
+      href={`https://wa.me/${site.whatsapp}`}
+      class="font-semibold text-gold-deep underline underline-offset-2"
+      rel="noopener noreferrer"
+      target="_blank">WhatsApp</a>.
+  </p>
+
+  <p data-form-status role="status" aria-live="polite" class="hidden font-body text-[0.85rem]"></p>
+</form>
+
+<div data-form-success class="hidden flex-col items-start gap-4 rounded-2xl border border-success/30 bg-card p-8">
+  <span class="flex h-12 w-12 items-center justify-center rounded-full bg-success/10 text-success">
+    <Icon name="check-circle" size={26} />
+  </span>
+  <h3 class="font-display text-[1.4rem] font-semibold text-ink">Thank you — we have your enquiry.</h3>
+  <p class="font-body text-[0.92rem] leading-relaxed text-slate">
+    A confirmation is on its way to your inbox. A practitioner will reply within one
+    business day. If it is urgent, message us on
+    <a
+      href={`https://wa.me/${site.whatsapp}`}
+      class="font-semibold text-gold-deep underline underline-offset-2"
+      rel="noopener noreferrer"
+      target="_blank">WhatsApp</a>.
+  </p>
+</div>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('[data-contact-form]');
+
+  if (form) {
+    const status = form.querySelector<HTMLElement>('[data-form-status]');
+    const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const submitLabel = form.querySelector<HTMLElement>('[data-submit-label]');
+    const successPanel = document.querySelector<HTMLElement>('[data-form-success]');
+
+    const setError = (field: HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, message: string) => {
+      const target = document.getElementById(`${field.id}-error`);
+      if (target) {
+        target.textContent = message;
+        target.classList.toggle('hidden', !message);
+      }
+      field.setAttribute('aria-invalid', message ? 'true' : 'false');
+    };
+
+    const validate = (): boolean => {
+      let firstInvalid: HTMLElement | null = null;
+
+      const name = form.elements.namedItem('name') as HTMLInputElement;
+      const email = form.elements.namedItem('email') as HTMLInputElement;
+      const phone = form.elements.namedItem('phone') as HTMLInputElement;
+      const service = form.elements.namedItem('service') as HTMLSelectElement;
+      const message = form.elements.namedItem('message') as HTMLTextAreaElement;
+      const consent = form.elements.namedItem('consent') as HTMLInputElement;
+
+      const checks: Array<
+        [HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement, string]
+      > = [
+        [name, name.value.trim().length < 2 ? 'Please enter your name.' : ''],
+        [
+          email,
+          /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())
+            ? ''
+            : 'Please enter a valid email address.',
+        ],
+        [
+          phone,
+          phone.value.replace(/\D/g, '').length < 9
+            ? 'Please enter a contactable phone number.'
+            : '',
+        ],
+        [service, service.value ? '' : 'Please choose a service.'],
+        [message, message.value.trim().length < 10 ? 'Please add a sentence or two.' : ''],
+        [consent, consent.checked ? '' : 'Please accept the privacy notice to continue.'],
+      ];
+
+      for (const [field, error] of checks) {
+        setError(field, error);
+        if (error && !firstInvalid) firstInvalid = field;
+      }
+
+      if (firstInvalid) firstInvalid.focus();
+      return !firstInvalid;
+    };
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      if (!validate()) return;
+
+      const data = new FormData(form);
+      const payload = {
+        kind: 'enquiry',
+        name: String(data.get('name') ?? ''),
+        business: String(data.get('business') ?? ''),
+        email: String(data.get('email') ?? ''),
+        phone: String(data.get('phone') ?? ''),
+        service: String(data.get('service') ?? ''),
+        message: String(data.get('message') ?? ''),
+        consent: data.get('consent') === 'on',
+        website: String(data.get('website') ?? ''),
+        startedAt: Number(data.get('startedAt') ?? 0),
+      };
+
+      submitButton?.setAttribute('disabled', 'true');
+      if (submitLabel) submitLabel.textContent = 'Sending…';
+      if (status) {
+        status.textContent = '';
+        status.classList.add('hidden');
+      }
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+        });
+
+        if (!response.ok) throw new Error('Request failed');
+
+        form.classList.add('hidden');
+        successPanel?.classList.remove('hidden');
+        successPanel?.classList.add('flex');
+        successPanel?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      } catch {
+        if (status) {
+          status.textContent =
+            'We could not send that just now. Please try again, or email us directly.';
+          status.className = 'font-body text-[0.85rem] text-danger';
+          status.classList.remove('hidden');
+        }
+        submitButton?.removeAttribute('disabled');
+        if (submitLabel) submitLabel.textContent = 'Send enquiry';
+      }
+    });
+  }
+</script>

@@ -1,0 +1,53 @@
+---
+import LegalShell from '../components/LegalShell.astro';
+import { site } from '../data/site';
+---
+
+<LegalShell
+  title="Cookie Notice — Basebond Solutions"
+  heading="Cookie Notice"
+  updated="21 November 2026"
+  path="/cookies"
+  description="What cookies and similar technologies this website uses, and how to control them."
+  intro="This notice explains the small amount of browser storage this site uses, and how you can control it."
+>
+  <h2>1. What this site uses</h2>
+  <p>
+    This website does not use advertising cookies, tracking pixels or third-party
+    marketing cookies. It does not build a profile of you across other websites.
+  </p>
+  <p>The only browser storage used is:</p>
+  <ul>
+    <li><strong>Essential functionality</strong> — nothing beyond what the browser needs to display the site and submit a form.</li>
+    <li><strong>Local fonts and styles</strong> — typography and styles are served from this domain, so no font provider receives your IP address.</li>
+  </ul>
+
+  <h2>2. Analytics</h2>
+  <p>
+    If we add website analytics, we will use a cookieless, privacy-respecting service that
+    does not set identifying cookies. If that changes to anything that does set cookies,
+    this notice will be updated and consent will be requested before any non-essential
+    cookie is placed.
+  </p>
+
+  <h2>3. Third-party services you choose to use</h2>
+  <p>
+    Clicking a WhatsApp link opens WhatsApp, which is operated by a third party and has
+    its own privacy and cookie practices. The same applies to any external site we link
+    to. We do not control those practices.
+  </p>
+
+  <h2>4. How to control cookies</h2>
+  <p>
+    You can clear or block cookies and site data in your browser settings. Because this
+    site does not rely on cookies for functionality, blocking them will not affect your
+    ability to use it.
+  </p>
+
+  <h2>5. Questions</h2>
+  <p>
+    For anything relating to this notice, contact
+    <a href={`mailto:${site.email}`}>{site.email}</a>. Our wider handling of personal
+    information is described in the <a href="/privacy">privacy notice</a>.
+  </p>
+</LegalShell>

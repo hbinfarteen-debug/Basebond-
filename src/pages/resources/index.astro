@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import CTABand from '../../components/CTABand.astro';
+import { articles } from '../../data/articles';
+
+const formatDate = (value: string) =>
+  new Date(value).toLocaleDateString('en-ZA', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+---
+
+<BaseLayout
+  title="Resources — SARS, CIPC and Year-End Guides | Basebond Solutions"
+  description="Practical guides for South African business owners on SARS deadlines, CIPC annual returns, beneficial ownership and year-end preparation."
+  path="/resources"
+>
+  <section class="relative overflow-hidden bg-gradient-to-b from-ink via-charcoal to-ink py-16 text-cream lg:py-24">
+    <!-- Cinematic South African Professional Hero Background Image -->
+    <div class="pointer-events-none absolute inset-0 z-0">
+      <img
+        src="/images/resources-hero.jpg"
+        alt="South African business professional reviewing compliance and tax calendar"
+        class="h-full w-full object-cover object-[center_35%] opacity-25 mix-blend-luminosity filter contrast-125"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <!-- Gradients for seamless blending into #0b0b0c and ensuring crisp typography readability -->
+      <div class="absolute inset-0 bg-gradient-to-r from-ink via-ink/90 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/75"></div>
+      <div class="absolute inset-0 bg-radial from-gold/10 via-transparent to-transparent"></div>
+    </div>
+
+    <!-- Basebond Triangle Watermark -->
+    <div class="pointer-events-none absolute -right-32 -top-24 h-[420px] w-[420px] opacity-[0.08]" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" class="h-full w-full">
+        <polygon points="100,10 190,180 10,180" stroke="#F5B800" stroke-width="1.2"></polygon>
+      </svg>
+    </div>
+    <div class="container-page relative z-10">
+      <nav aria-label="Breadcrumb" class="mb-6 font-body text-[0.78rem] text-mist">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="hover:text-gold">Home</a></li>
+          <li aria-hidden="true" class="text-mist/40">/</li>
+          <li><span class="text-cream">Resources</span></li>
+        </ol>
+      </nav>
+
+      <div class="max-w-2xl">
+        <span class="mb-3 block font-body text-eyebrow uppercase text-gold">Practical guides</span>
+        <h1 class="font-display text-display-lg text-cream">
+          The compliance calendar, explained properly.
+        </h1>
+        <p class="mt-4 font-body text-body-lg text-mist">
+          Short, specific guides on the deadlines and filings South African business owners
+          run into most often. No jargon, and no pretending a date never moves.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream py-16 text-ink lg:py-24">
+    <div class="container-page">
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {
+          articles.map((article) => (
+            <a
+              href={`/resources/${article.slug}`}
+              class="group flex flex-col justify-between gap-5 rounded-2xl border border-line-light bg-card p-7 transition-colors hover:border-gold/60"
+            >
+              <div>
+                <div class="mb-4 flex items-center gap-2">
+                  <span class="rounded-full bg-tint px-2.5 py-1 font-body text-[0.65rem] font-bold uppercase tracking-[0.12em] text-gold-deep">
+                    {article.category}
+                  </span>
+                  <span class="font-body text-[0.72rem] text-slate">{article.readingTime}</span>
+                </div>
+                <h2 class="font-display text-[1.25rem] font-semibold leading-snug text-ink">
+                  {article.title}
+                </h2>
+                <p class="mt-2 font-body text-[0.87rem] leading-relaxed text-slate">
+                  {article.description}
+                </p>
+              </div>
+
+              <div class="flex items-center justify-between border-t border-line-light pt-4">
+                <time datetime={article.date} class="font-body text-[0.75rem] text-slate">
+                  {formatDate(article.date)}
+                </time>
+                <span class="inline-flex items-center gap-1.5 font-body text-[0.8rem] font-semibold text-ink group-hover:text-gold-deep">
+                  Read
+                  <Icon name="arrow-right" size={14} class="transition-transform group-hover:translate-x-1" />
+                </span>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+
+      <div class="mt-12 rounded-2xl border border-line-light bg-tint p-7">
+        <h2 class="font-display text-headline-md text-ink">Want this handled for you?</h2>
+        <p class="mt-2 max-w-2xl font-body text-[0.92rem] leading-relaxed text-slate">
+          Our retainers include a compliance calendar with every deadline tracked, returns
+          prepared ahead of the date, and a practitioner who responds to SARS correspondence
+          on your behalf.
+        </p>
+        <a
+          href="/pricing"
+          class="mt-5 inline-flex items-center gap-1.5 font-body text-[0.88rem] font-semibold text-gold-deep hover:underline"
+        >
+          See monthly packages
+          <Icon name="arrow-right" size={15} />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

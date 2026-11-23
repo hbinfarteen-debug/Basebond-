@@ -1,0 +1,335 @@
+---
+import Icon from './Icon.astro';
+
+const steps = [
+  {
+    number: '01',
+    title: 'Free consultation',
+    subtitle: 'Review accounts & compliance needs',
+    icon: 'calendar',
+    status: 'completed',
+    delay: '150ms',
+  },
+  {
+    number: '02',
+    title: 'Written scope agreed',
+    subtitle: 'Every deliverable confirmed in writing',
+    icon: 'file-text',
+    status: 'completed',
+    delay: '350ms',
+  },
+  {
+    number: '03',
+    title: 'Fixed monthly plan',
+    subtitle: 'Recurring support with zero surprises',
+    icon: 'refresh',
+    status: 'current',
+    delay: '550ms',
+  },
+];
+---
+
+<div
+  class="pricing-hero-visual relative mx-auto flex h-[420px] w-full max-w-[560px] items-center justify-center select-none"
+  aria-label="3-step transparent onboarding process showing how clients get a written-scope monthly plan"
+>
+  <!-- Ambient Gold Glows & Depth Gradients -->
+  <div
+    class="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 h-[320px] w-[420px] rounded-full bg-gradient-to-tr from-gold/15 via-gold/10 to-transparent blur-[85px]"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="pointer-events-none absolute bottom-0 right-4 h-[200px] w-[240px] rounded-full bg-gold/10 blur-[75px]"
+    aria-hidden="true"
+  ></div>
+
+  <!-- Background Basebond Logo Triangles & Connector Lines -->
+  <svg
+    viewBox="0 0 560 420"
+    fill="none"
+    class="pointer-events-none absolute inset-0 h-full w-full opacity-60"
+    aria-hidden="true"
+  >
+    <!-- Logo Triangles in Faint Gold Outlines -->
+    <g stroke="#F5B800" stroke-opacity="0.13" stroke-width="1.2">
+      <!-- Triangle 1 (outer top left) -->
+      <polygon points="110,35 25,270 195,270" stroke-dasharray="4 6" />
+      <!-- Triangle 2 (middle right) -->
+      <polygon points="450,60 360,250 540,250" stroke-opacity="0.16" />
+      <!-- Triangle 3 (accent offset) -->
+      <polygon points="480,90 400,260 560,260" stroke-opacity="0.08" />
+    </g>
+
+    <!-- Subtle Dotted Connector Lines -->
+    <g stroke="#FAF8F3" stroke-opacity="0.2" stroke-width="1" stroke-dasharray="3 5">
+      <line x1="120" y1="120" x2="200" y2="180" />
+      <line x1="390" y1="90" x2="340" y2="150" />
+    </g>
+    <circle cx="120" cy="120" r="2" fill="#F5B800" fill-opacity="0.5" />
+    <circle cx="390" cy="90" r="2" fill="#F5B800" fill-opacity="0.5" />
+  </svg>
+
+  <!-- ==================== BACKGROUND CARD: SCOPE OF WORK ==================== -->
+  <div
+    class="pricing-bg-card pointer-events-none absolute -left-2 top-[35px] z-10 w-[220px] sm:w-[240px] select-none"
+    aria-hidden="true"
+  >
+    <div
+      class="rounded-2xl border border-white/10 bg-[#121215]/75 p-4 shadow-[0_20px_50px_rgba(0,0,0,0.65)] backdrop-blur-md"
+      style="transform: rotate(-6deg) scale(0.94); transform-origin: center right;"
+    >
+      <div class="mb-3 flex items-center justify-between border-b border-white/5 pb-2">
+        <div class="flex items-center gap-2">
+          <span class="flex h-5 w-5 items-center justify-center rounded-full bg-gold/15 text-gold">
+            <Icon name="file-text" size={11} />
+          </span>
+          <span class="font-body text-[0.74rem] font-semibold tracking-wide text-cream/90">Scope of work</span>
+        </div>
+        <span class="font-mono text-[0.55rem] uppercase tracking-wider text-mist/60">V 2.4</span>
+      </div>
+
+      <!-- Skeleton text lines -->
+      <div class="space-y-2 py-1">
+        <div class="h-1.5 w-full rounded-sm bg-white/10"></div>
+        <div class="h-1.5 w-4/5 rounded-sm bg-white/8"></div>
+        <div class="h-1.5 w-3/5 rounded-sm bg-white/8"></div>
+      </div>
+
+      <!-- Gold 'Approved' tick badge -->
+      <div class="mt-3 flex items-center gap-1.5 rounded-lg border border-gold/30 bg-gold/10 px-2.5 py-1.5 backdrop-blur-sm">
+        <span class="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-gold text-ink">
+          <Icon name="check" size={9} strokeWidth={3} />
+        </span>
+        <span class="font-mono text-[0.58rem] font-semibold uppercase tracking-wider text-gold">
+          Approved before we start
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== FLOATING PILLS ==================== -->
+  <!-- Pill 1: No lock-in contracts (Top Right) -->
+  <div
+    class="floating-pill-1 absolute -right-2 sm:right-2 top-[24px] z-30 inline-flex items-center gap-1.5 rounded-full border border-gold/30 bg-[#141418]/90 px-3.5 py-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.5)] backdrop-blur-md"
+  >
+    <span class="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-gold/20 text-gold">
+      <Icon name="shield" size={10} />
+    </span>
+    <span class="font-body text-[0.7rem] font-medium tracking-wide text-cream">
+      No lock-in contracts
+    </span>
+  </div>
+
+  <!-- Pill 2: Cancel anytime (Bottom Left) -->
+  <div
+    class="floating-pill-2 absolute -left-2 sm:left-4 bottom-[20px] z-30 inline-flex items-center gap-1.5 rounded-full border border-white/15 bg-[#141418]/90 px-3.5 py-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.5)] backdrop-blur-md"
+  >
+    <span class="flex h-3.5 w-3.5 items-center justify-center rounded-full bg-white/10 text-cream">
+      <Icon name="refresh" size={10} />
+    </span>
+    <span class="font-body text-[0.7rem] font-medium tracking-wide text-mist">
+      Cancel anytime
+    </span>
+  </div>
+
+  <!-- ==================== MAIN GLASSMORPHISM CARD ==================== -->
+  <div
+    class="pricing-main-card relative z-20 w-full max-w-[390px] sm:max-w-[410px] rounded-3xl border border-white/12 bg-gradient-to-b from-[#18181D]/88 via-[#111114]/92 to-[#0E0E11]/95 p-5 sm:p-6 shadow-[0_30px_70px_-15px_rgba(0,0,0,0.85)] backdrop-blur-xl"
+  >
+    <!-- Soft Outer Card Glow -->
+    <div
+      class="pointer-events-none absolute -inset-[1px] -z-10 rounded-3xl bg-gradient-to-b from-gold/20 via-white/5 to-transparent opacity-60 blur-sm"
+      aria-hidden="true"
+    ></div>
+
+    <!-- Header: Label -->
+    <div class="mb-5 flex items-center justify-between border-b border-white/8 pb-3.5">
+      <div>
+        <span class="block font-mono text-[0.62rem] uppercase tracking-[0.2em] text-gold">
+          YOUR PLAN, MADE CLEAR
+        </span>
+        <span class="font-body text-[0.78rem] text-mist">3-step transparent engagement</span>
+      </div>
+
+      <!-- Verified badge icon -->
+      <span class="flex h-7 w-7 items-center justify-center rounded-full bg-gold/10 text-gold border border-gold/25">
+        <Icon name="target" size={13} />
+      </span>
+    </div>
+
+    <!-- Steps Stack with Vertical Connector -->
+    <div class="relative space-y-3.5">
+      <!-- Thin dotted gold vertical connector line linking the three steps -->
+      <div
+        class="pointer-events-none absolute left-[19px] top-[18px] bottom-[18px] w-[1.5px] border-l-[1.5px] border-dotted border-gold/45 z-0"
+        aria-hidden="true"
+      ></div>
+
+      {
+        steps.map((step) => {
+          const isCurrent = step.status === 'current';
+          return (
+            <div
+              class={`process-step relative z-10 flex items-center justify-between rounded-2xl border px-3.5 py-3 transition-all duration-500 ${
+                isCurrent
+                  ? 'border-gold/40 bg-gold/[0.06] shadow-[0_0_20px_rgba(245,184,0,0.12)]'
+                  : 'border-white/6 bg-white/[0.03] hover:border-white/15'
+              }`}
+              style={`animation-delay: ${step.delay};`}
+            >
+              <div class="flex items-center gap-3">
+                <!-- Icon with gold styling & ring -->
+                <div class="relative flex items-center justify-center">
+                  <span
+                    class={`flex h-8 w-8 items-center justify-center rounded-full transition-all ${
+                      isCurrent
+                        ? 'bg-charcoal text-gold border-2 border-gold ring-4 ring-gold/20 shadow-[0_0_12px_rgba(245,184,0,0.45)]'
+                        : 'bg-gold/15 text-gold border border-gold/30'
+                    }`}
+                  >
+                    <Icon name={step.icon} size={15} strokeWidth={2} />
+                  </span>
+                </div>
+
+                <!-- Step details -->
+                <div>
+                  <div class="flex items-center gap-2">
+                    <span class="font-mono text-[0.6rem] font-bold uppercase tracking-wider text-gold/80">
+                      Step {step.number}
+                    </span>
+                  </div>
+                  <h4 class="font-body text-[0.84rem] font-semibold text-cream leading-tight">
+                    {step.title}
+                  </h4>
+                  <p class="font-body text-[0.7rem] text-mist/75">
+                    {step.subtitle}
+                  </p>
+                </div>
+              </div>
+
+              <!-- Status Indicator: Green Tick for Completed, Glowing Gold Ring for Current Step -->
+              <div class="pl-2">
+                {step.status === 'completed' ? (
+                  <span
+                    class="flex h-5 w-5 items-center justify-center rounded-full bg-success text-white shadow-[0_0_10px_rgba(46,204,113,0.4)]"
+                    title="Completed"
+                  >
+                    <Icon name="check" size={12} strokeWidth={3} />
+                  </span>
+                ) : (
+                  <div class="relative flex h-5 w-5 items-center justify-center">
+                    <!-- Glowing Gold Ring -->
+                    <span class="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold/40 opacity-75"></span>
+                    <span class="relative flex h-5 w-5 items-center justify-center rounded-full border-2 border-gold bg-gold/20 text-gold shadow-[0_0_12px_rgba(245,184,0,0.6)]">
+                      <span class="h-1.5 w-1.5 rounded-full bg-gold"></span>
+                    </span>
+                  </div>
+                )}
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+
+    <!-- Thin Divider -->
+    <div class="my-4 h-[1px] w-full bg-gradient-to-r from-transparent via-gold/40 to-transparent" aria-hidden="true"></div>
+
+    <!-- Card Footer -->
+    <div class="pt-0.5 text-center">
+      <p class="font-body text-[0.74rem] font-medium text-mist/90 flex items-center justify-center gap-2">
+        <span class="inline-block h-1.5 w-1.5 rounded-full bg-gold"></span>
+        No lock-in. No surprise invoices.
+      </p>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Float animations with gentle drifting */
+  @keyframes pricingFloatMain {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-7px) rotate(0.3deg);
+    }
+  }
+
+  @keyframes pricingFloatBack {
+    0%, 100% {
+      transform: translateY(0px) rotate(-6deg) scale(0.94);
+    }
+    50% {
+      transform: translateY(-11px) rotate(-5.3deg) scale(0.94);
+    }
+  }
+
+  @keyframes pillFloat1 {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-8px) rotate(-1deg);
+    }
+  }
+
+  @keyframes pillFloat2 {
+    0%, 100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+    50% {
+      transform: translateY(-6px) rotate(1.2deg);
+    }
+  }
+
+  /* Fade-in & sequence light-up for process steps */
+  @keyframes stepLightUp {
+    0% {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    60% {
+      opacity: 1;
+      transform: translateY(-1px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .pricing-main-card {
+    animation: pricingFloatMain 6.5s ease-in-out infinite;
+  }
+
+  .pricing-bg-card {
+    animation: pricingFloatBack 8s ease-in-out infinite;
+  }
+
+  .floating-pill-1 {
+    animation: pillFloat1 5.5s ease-in-out infinite;
+  }
+
+  .floating-pill-2 {
+    animation: pillFloat2 6.8s ease-in-out infinite;
+    animation-delay: 0.8s;
+  }
+
+  .process-step {
+    animation: stepLightUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    opacity: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pricing-main-card,
+    .pricing-bg-card,
+    .floating-pill-1,
+    .floating-pill-2,
+    .process-step {
+      animation: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>

@@ -1,0 +1,588 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Button from '../components/Button.astro';
+import HeroVisual from '../components/HeroVisual.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import FAQList from '../components/FAQList.astro';
+import CTABand from '../components/CTABand.astro';
+import Testimonials from '../components/Testimonials.astro';
+import { site, whatsappLink, trustMarkers } from '../data/site';
+import { homeServices } from '../data/services';
+import { pains } from '../data/pains';
+import { steps, values } from '../data/values';
+import { industries } from '../data/industries';
+import { pricing, pricingNote } from '../data/pricing';
+import { faqs } from '../data/faqs';
+
+const homeFaqs = faqs.slice(0, 6);
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: homeFaqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: { '@type': 'Answer', text: faq.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Basebond Solutions — Registered Accountants & Tax Practitioners | South Africa"
+  description={site.description}
+  path="/"
+  schema={faqSchema}
+>
+  <!-- ── Hero ─────────────────────────────────────────────────────────── -->
+  <section class="relative overflow-hidden bg-gradient-to-b from-ink to-charcoal text-cream">
+    <div class="pointer-events-none absolute -left-24 -bottom-28 h-[420px] w-[420px] opacity-[0.09]" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" class="h-full w-full">
+        <polygon points="90,20 180,180 10,180" stroke="#F5B800" stroke-width="1"></polygon>
+        <polygon points="70,50 150,185 0,185" fill="#F5B800" fill-opacity="0.14"></polygon>
+      </svg>
+    </div>
+    <div class="pointer-events-none absolute -right-32 -top-32 h-[560px] w-[560px] opacity-[0.09]" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" class="h-full w-full">
+        <polygon points="100,10 190,180 10,180" stroke="#F5B800" stroke-width="1.2"></polygon>
+        <polygon points="120,40 195,185 45,185" fill="#F5B800" fill-opacity="0.16"></polygon>
+      </svg>
+    </div>
+
+    <div class="container-page relative z-10 grid grid-cols-1 items-center gap-14 py-16 lg:grid-cols-12 lg:gap-8 lg:py-24">
+      <div class="flex flex-col gap-6 lg:col-span-5">
+        <h1 class="font-display text-display-xl text-cream">
+          Numbers in order.
+          <em class="block italic text-gold">Business on track.</em>
+        </h1>
+
+        <p class="max-w-xl font-body text-body-lg text-mist">
+          We keep South African businesses compliant, organised and financially strong.
+          Bookkeeping, tax, payroll and medical billing — handled by registered
+          practitioners, on a schedule you can plan around.
+        </p>
+
+        <div class="flex flex-wrap items-center gap-3 pt-1">
+          <Button href="/contact" size="lg" icon="arrow-right">
+            Book a free consultation
+          </Button>
+          <Button
+            href={whatsappLink('Hi Basebond Solutions, I would like to book a free consultation.')}
+            variant="outline-light"
+            size="lg"
+            icon="whatsapp"
+            iconRight={false}
+            external
+          >
+            WhatsApp us
+          </Button>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-line-dark pt-5 font-body text-[0.8rem] text-mist">
+          <span class="inline-flex items-center gap-2">
+            <Icon name="clock" size={14} class="text-gold" />
+            {site.responsePromise}
+          </span>
+          <span class="text-line-dark" aria-hidden="true">•</span>
+          <span class="inline-flex items-center gap-2">
+            <Icon name="globe" size={14} class="text-gold" />
+            Nationwide, remote-first
+          </span>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <HeroVisual />
+
+        <!-- Mobile: compact proof grid in place of the orbit visual -->
+        <div class="grid grid-cols-2 gap-3 lg:hidden">
+          {
+            [
+              { icon: 'check-circle', label: 'Monthly close', detail: 'Reconciled and reported' },
+              { icon: 'receipt', label: 'VAT201', detail: 'Prepared and filed' },
+              { icon: 'payments', label: 'Payroll', detail: 'PAYE, UIF and SDL' },
+              { icon: 'stethoscope', label: 'Medical billing', detail: 'Tracked to remittance' },
+            ].map((item) => (
+              <div class="rounded-xl border border-line-dark bg-charcoal p-3.5">
+                <span class="mb-2 flex h-8 w-8 items-center justify-center rounded-full bg-ink text-gold">
+                  <Icon name={item.icon} size={16} />
+                </span>
+                <span class="block font-body text-[0.8rem] font-semibold text-cream">
+                  {item.label}
+                </span>
+                <span class="mt-0.5 block font-body text-[0.7rem] text-mist">{item.detail}</span>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Trust strip ──────────────────────────────────────────────────── -->
+  <section class="border-y border-line-dark bg-charcoal">
+    <div class="container-page py-10">
+      <div class="mb-6 flex flex-wrap items-center justify-between gap-3 border-b border-line-dark pb-5">
+        <span class="font-body text-eyebrow uppercase text-gold">Accurate · Reliable · Professional</span>
+        <span class="font-body text-[0.82rem] text-mist">
+          Working with South African SMEs and private medical practices nationwide
+        </span>
+      </div>
+      <div class="grid grid-cols-1 gap-x-6 gap-y-5 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          trustMarkers.map((marker) => (
+            <div class="flex items-center gap-3">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-gold/30 bg-ink text-gold">
+                <Icon name={marker.icon} size={16} />
+              </span>
+              <span class="font-body text-[0.86rem] text-cream">{marker.label}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Pain points ──────────────────────────────────────────────────── -->
+  <section class="bg-cream py-20 text-ink lg:py-28">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Why business owners switch"
+        title="Is paperwork holding your business back?"
+        intro="Three problems we see most often — and what actually changes when they are handled properly."
+        class="mb-14"
+      />
+
+      <div class="grid grid-cols-1 gap-6 lg:grid-cols-3">
+        {
+          pains.map((pain) => (
+            <article class="flex flex-col rounded-2xl border border-line-light bg-card p-7">
+              <div class="mb-6 flex h-11 w-11 items-center justify-center rounded-full bg-ink text-gold">
+                <Icon name={pain.icon} size={20} />
+              </div>
+              <h3 class="font-display text-[1.2rem] font-semibold text-ink">{pain.title}</h3>
+              <p class="mt-2 font-body text-[0.9rem] leading-relaxed text-slate">{pain.problem}</p>
+
+              <div class="mt-6 border-t border-line-light pt-5">
+                <span class="mb-1.5 flex items-center gap-2 font-body text-[0.68rem] font-bold uppercase tracking-[0.14em] text-gold-deep">
+                  <Icon name="check-circle" size={13} />
+                  How we fix it
+                </span>
+                <h4 class="font-body text-[0.95rem] font-semibold text-ink">{pain.solutionTitle}</h4>
+                <p class="mt-1.5 font-body text-[0.88rem] leading-relaxed text-slate">{pain.solution}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services ─────────────────────────────────────────────────────── -->
+  <section id="services" class="border-y border-line-light bg-tint py-20 lg:py-28">
+    <div class="container-page">
+      <div class="mb-14 flex flex-wrap items-end justify-between gap-6">
+        <SectionHeading
+          eyebrow="Comprehensive practice"
+          title="Everything your business needs, handled properly."
+          class="max-w-xl"
+        />
+        <Button href="/services" variant="dark" size="md" icon="arrow-right">
+          View all services
+        </Button>
+      </div>
+
+      <div class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {homeServices.map((service) => <ServiceCard service={service} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Medical billing feature ──────────────────────────────────────── -->
+  <section class="relative overflow-hidden bg-ink py-20 text-cream lg:py-28">
+    <div class="pointer-events-none absolute -right-40 top-0 h-[600px] w-[600px] opacity-[0.06]" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" class="h-full w-full">
+        <polygon points="100,10 190,180 10,180" stroke="#F5B800" stroke-width="1.4"></polygon>
+      </svg>
+    </div>
+
+    <div class="container-page relative z-10 grid grid-cols-1 items-center gap-14 lg:grid-cols-12">
+      <div class="flex flex-col gap-5 lg:col-span-6">
+        <span class="font-body text-eyebrow uppercase text-gold">Specialised healthcare division</span>
+        <h2 class="font-display text-display-lg text-cream">
+          Dedicated medical billing for private practices.
+        </h2>
+        <p class="max-w-xl font-body text-body-lg text-mist">
+          Built for doctors, dentists, physiotherapists, optometrists and specialist
+          clinics. Focus on patients while claims are validated, submitted and followed
+          through to remittance.
+        </p>
+
+        <ul class="mt-2 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          {
+            [
+              'Medical aid claims with ICD-10 coding checks',
+              'Rejection and short-payment follow-ups',
+              'Patient statements and debtor collections',
+              'Remittance reconciliation, POPIA-aligned',
+            ].map((item) => (
+              <li class="flex items-start gap-2.5">
+                <Icon name="check" size={16} strokeWidth={2.6} class="mt-1 shrink-0 text-gold" />
+                <span class="font-body text-[0.9rem] leading-relaxed text-cream">{item}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="pt-2">
+          <Button href="/services/medical-billing" size="lg" icon="arrow-right">
+            Explore medical billing
+          </Button>
+        </div>
+      </div>
+
+      <div class="lg:col-span-6">
+        <div class="rounded-2xl border border-line-dark bg-charcoal p-5">
+          <div class="mb-4 flex items-center justify-between">
+            <span class="font-mono text-[0.68rem] uppercase tracking-[0.16em] text-mist">
+              Claim lifecycle
+            </span>
+            <span class="rounded-full border border-gold/30 bg-ink px-2.5 py-0.5 font-body text-[0.6rem] font-bold uppercase tracking-[0.12em] text-gold">
+              Illustrative
+            </span>
+          </div>
+
+          <div class="flex flex-col gap-2.5">
+            {
+              [
+                { label: 'Claim prepared', detail: 'Codes and tariff validated', done: true },
+                { label: 'Submitted to scheme', detail: 'Electronic submission', done: true },
+                { label: 'Accepted', detail: 'No rejection raised', done: true },
+                { label: 'Remittance reconciled', detail: 'Matched to the claim', done: false },
+              ].map((stage) => (
+                <div class="flex items-center gap-3 rounded-xl border border-line-dark bg-ink/60 px-3.5 py-3">
+                  <span
+                    class:list={[
+                      'flex h-6 w-6 shrink-0 items-center justify-center rounded-full',
+                      stage.done ? 'bg-success text-white' : 'border border-gold/50 text-gold',
+                    ]}
+                  >
+                    {stage.done ? (
+                      <Icon name="check" size={12} strokeWidth={3} />
+                    ) : (
+                      <Icon name="refresh" size={12} />
+                    )}
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block font-body text-[0.84rem] font-semibold text-cream">
+                      {stage.label}
+                    </span>
+                    <span class="block font-body text-[0.72rem] text-mist">{stage.detail}</span>
+                  </span>
+                </div>
+              ))
+            }
+          </div>
+
+          <div class="mt-4 flex items-center justify-between gap-3 border-t border-line-dark pt-4">
+            <span class="font-body text-[0.78rem] text-mist">
+              Every claim tracked from submission to payment.
+            </span>
+            <span class="inline-flex items-center gap-1.5 font-body text-[0.75rem] font-semibold text-gold">
+              <Icon name="stethoscope" size={14} />
+              Medical
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── How it works ─────────────────────────────────────────────────── -->
+  <section class="bg-cream py-20 text-ink lg:py-28">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Simple onboarding"
+        title="From overwhelmed to organised in four steps."
+        align="center"
+        class="mb-16"
+      />
+
+      <div class="relative grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div class="absolute left-6 right-6 top-6 hidden h-px bg-gold/40 lg:block" aria-hidden="true"></div>
+        {
+          steps.map((step, index) => (
+            <div class="relative flex flex-col gap-3">
+              <span
+                class:list={[
+                  'z-10 flex h-12 w-12 items-center justify-center rounded-full font-mono text-[0.9rem] font-medium',
+                  index === steps.length - 1
+                    ? 'bg-gold text-ink'
+                    : 'border border-gold bg-ink text-gold',
+                ]}
+              >
+                {step.number}
+              </span>
+              <h3 class="font-display text-[1.15rem] font-semibold text-ink">{step.title}</h3>
+              <p class="font-body text-[0.88rem] leading-relaxed text-slate">{step.body}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Why Basebond ─────────────────────────────────────────────────── -->
+  <section id="about" class="border-y border-line-dark bg-charcoal py-20 text-cream lg:py-28">
+    <div class="container-page grid grid-cols-1 items-center gap-14 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <div class="relative overflow-hidden rounded-2xl border border-line-dark bg-ink p-8">
+          <div class="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-gold/10 blur-2xl" aria-hidden="true"></div>
+
+          <div class="relative z-10 flex flex-col gap-5">
+            <div class="flex items-center gap-3">
+              <span class="flex h-10 w-10 items-center justify-center rounded-full border border-gold/40 text-gold">
+                <Icon name="shield" size={18} />
+              </span>
+              <span class="font-body text-[0.72rem] font-bold uppercase tracking-[0.16em] text-gold">
+                Our standard
+              </span>
+            </div>
+
+            <p class="font-display text-[1.5rem] leading-snug text-cream">
+              Every return is checked before it is filed. Every reconciliation is
+              investigated, not adjusted.
+            </p>
+
+            <div class="flex flex-col gap-2.5 border-t border-line-dark pt-5">
+              {
+                ['Reviewed before submission', 'Deadlines met ahead of date', 'One named practitioner per client'].map(
+                  (item) => (
+                    <span class="flex items-center gap-2.5 font-body text-[0.85rem] text-mist">
+                      <Icon name="check" size={14} strokeWidth={2.6} class="text-gold" />
+                      {item}
+                    </span>
+                  ),
+                )
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7">
+        <SectionHeading
+          eyebrow="Why Basebond"
+          title="Private-firm rigour, without the private-firm distance."
+          intro="You get the accuracy and confidentiality of a professional practice, with a practitioner who answers when you ask a question."
+          theme="dark"
+          class="mb-8"
+        />
+
+        <div class="flex flex-col gap-3">
+          {
+            values.map((value) => (
+              <div class="flex items-start gap-4 rounded-xl border border-line-dark bg-ink p-5">
+                <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-charcoal text-gold">
+                  <Icon name={value.icon} size={18} />
+                </span>
+                <div>
+                  <h3 class="font-body text-[0.95rem] font-semibold text-cream">{value.title}</h3>
+                  <p class="mt-1 font-body text-[0.86rem] leading-relaxed text-mist">{value.body}</p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Industries ───────────────────────────────────────────────────── -->
+  <section id="industries" class="bg-cream py-20 text-ink lg:py-28">
+    <div class="container-page">
+      <div class="mb-12 flex flex-wrap items-end justify-between gap-6">
+        <SectionHeading
+          eyebrow="Sector expertise"
+          title="Industries we serve across South Africa"
+          class="max-w-xl"
+        />
+        <p class="max-w-sm font-body text-[0.9rem] text-slate">
+          Compliance rules and reporting needs differ by sector. We work to the pattern
+          your industry actually runs on.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          industries.map((industry) => (
+            <a
+              href="/industries"
+              class="group flex flex-col gap-3 rounded-2xl border border-line-light bg-card p-5 transition-colors hover:border-gold/60"
+            >
+              <span class="flex h-9 w-9 items-center justify-center rounded-full bg-tint text-gold-deep">
+                <Icon name={industry.icon} size={17} />
+              </span>
+              <span class="font-body text-[0.92rem] font-semibold text-ink">{industry.name}</span>
+              <span class="font-body text-[0.8rem] leading-relaxed text-slate">{industry.line}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <Testimonials />
+
+  <!-- ── Pricing teaser ───────────────────────────────────────────────── -->
+  <section id="pricing" class="border-t border-line-light bg-tint py-20 text-ink lg:py-28">
+    <div class="container-page">
+      <SectionHeading
+        eyebrow="Transparent retainers"
+        title="Clear monthly packages, no hidden fees."
+        intro="Every package includes a named practitioner and compliance monitoring. Your final scope is confirmed after a free review."
+        align="center"
+        class="mb-14"
+      />
+
+      <div class="grid grid-cols-1 items-stretch gap-6 lg:grid-cols-3">
+        {
+          pricing.map((tier) => (
+            <article
+              class:list={[
+                'flex flex-col justify-between gap-6 rounded-2xl p-7',
+                tier.featured
+                  ? 'border-2 border-gold bg-ink text-cream shadow-xl'
+                  : 'border border-line-light bg-card text-ink shadow-sm',
+              ]}
+            >
+              <div class="flex flex-col gap-4">
+                <div class="flex items-start justify-between gap-2">
+                  <div>
+                    <h3
+                      class:list={[
+                        'font-display text-[1.35rem] font-semibold',
+                        tier.featured ? 'text-cream' : 'text-ink',
+                      ]}
+                    >
+                      {tier.name}
+                    </h3>
+                    <p
+                      class:list={[
+                        'mt-1 font-body text-[0.82rem]',
+                        tier.featured ? 'text-mist' : 'text-slate',
+                      ]}
+                    >
+                      {tier.for}
+                    </p>
+                  </div>
+                  {tier.featured && (
+                    <span class="whitespace-nowrap rounded-full bg-gold px-2.5 py-1 font-body text-[0.6rem] font-bold uppercase tracking-[0.12em] text-ink">
+                      Most popular
+                    </span>
+                  )}
+                </div>
+
+                <div
+                  class:list={[
+                    'border-y py-4',
+                    tier.featured ? 'border-line-dark' : 'border-line-light',
+                  ]}
+                >
+                  <span
+                    class:list={[
+                      'font-display text-[1.9rem] font-semibold tabular-nums',
+                      tier.featured ? 'text-gold' : 'text-ink',
+                    ]}
+                  >
+                    {tier.price}
+                  </span>
+                  <span
+                    class:list={[
+                      'ml-1.5 font-body text-[0.8rem]',
+                      tier.featured ? 'text-mist' : 'text-slate',
+                    ]}
+                  >
+                    {tier.cadence}
+                  </span>
+                </div>
+
+                <ul class="flex flex-col gap-2.5">
+                  {tier.features.map((feature) => (
+                    <li class="flex items-start gap-2.5">
+                      <Icon
+                        name="check"
+                        size={15}
+                        strokeWidth={2.6}
+                        class:list={['mt-1 shrink-0', tier.featured ? 'text-gold' : 'text-gold-deep']}
+                      />
+                      <span
+                        class:list={[
+                          'font-body text-[0.85rem] leading-relaxed',
+                          tier.featured ? 'text-cream' : 'text-ink',
+                        ]}
+                      >
+                        {feature}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <Button
+                href="/contact"
+                variant={tier.featured ? 'primary' : 'dark'}
+                size="lg"
+                fullWidth
+              >
+                {tier.cta}
+              </Button>
+            </article>
+          ))
+        }
+      </div>
+
+      <p class="mx-auto mt-8 max-w-2xl text-center font-body text-[0.8rem] leading-relaxed text-slate">
+        {pricingNote}
+      </p>
+    </div>
+  </section>
+
+  <!-- ── FAQ ──────────────────────────────────────────────────────────── -->
+  <section id="faq" class="bg-cream py-20 text-ink lg:py-28">
+    <div class="container-page grid grid-cols-1 gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-5">
+        <SectionHeading
+          eyebrow="Common questions"
+          title="Answers before we begin."
+          intro="Still have a specific SARS, CIPC or medical billing question? Message our team directly."
+          class="mb-6"
+        />
+        <Button
+          href={whatsappLink('Hi Basebond Solutions, I have a question about your services.')}
+          variant="outline-dark"
+          size="md"
+          icon="whatsapp"
+          iconRight={false}
+          external
+        >
+          Ask on WhatsApp
+        </Button>
+      </div>
+
+      <div class="lg:col-span-7">
+        <FAQList faqs={homeFaqs} />
+        <a
+          href="/resources"
+          class="mt-6 inline-flex items-center gap-1.5 font-body text-[0.85rem] font-semibold text-gold-deep hover:underline"
+        >
+          Read our compliance guides
+          <Icon name="arrow-right" size={15} />
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

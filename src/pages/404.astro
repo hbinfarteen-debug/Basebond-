@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import { services } from '../data/services';
+---
+
+<BaseLayout
+  title="Page not found — Basebond Solutions"
+  description="The page you were looking for does not exist. Find our services, pricing or contact details instead."
+  noindex
+>
+  <section class="bg-gradient-to-b from-ink to-charcoal py-20 text-cream lg:py-28">
+    <div class="container-page">
+      <span class="mb-3 block font-body text-eyebrow uppercase text-gold">404</span>
+      <h1 class="max-w-2xl font-display text-display-lg text-cream">
+        That page has been filed somewhere else.
+      </h1>
+      <p class="mt-4 max-w-xl font-body text-body-lg text-mist">
+        The link may be out of date. Here is where most people are heading.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <Button href="/" size="lg" icon="arrow-right">Back to home</Button>
+        <Button href="/contact" variant="outline-light" size="lg">Contact us</Button>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream py-16 text-ink lg:py-20">
+    <div class="container-page">
+      <h2 class="mb-6 font-display text-headline-md text-ink">Services</h2>
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        {
+          services.map((service) => (
+            <a
+              href={`/services/${service.slug}`}
+              class="flex items-center gap-2.5 rounded-xl border border-line-light bg-card p-4 font-body text-[0.85rem] font-semibold text-ink transition-colors hover:border-gold/60"
+            >
+              <Icon name={service.icon} size={16} class="shrink-0 text-gold-deep" />
+              {service.name}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

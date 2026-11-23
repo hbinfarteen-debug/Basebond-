@@ -1,0 +1,88 @@
+---
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+---
+
+<form
+  class:list={['flex flex-col gap-2.5', className]}
+  data-newsletter
+  novalidate
+>
+  <label for="newsletter-email" class="font-body text-[0.8rem] font-semibold text-cream">
+    Monthly deadlines and practical notes, straight to your inbox
+  </label>
+  <div class="flex items-center gap-2">
+    <input
+      id="newsletter-email"
+      name="email"
+      type="email"
+      autocomplete="email"
+      required
+      placeholder="you@company.co.za"
+      class="min-w-0 flex-1 rounded-full border border-line-dark bg-charcoal px-4 py-2.5 font-body text-[0.85rem] text-cream placeholder:text-mist/70 focus:border-gold focus:outline-none"
+    />
+    <button
+      type="submit"
+      class="shrink-0 rounded-full bg-gold px-5 py-2.5 font-body text-[0.8rem] font-semibold text-ink transition-colors hover:bg-[#e0a800]"
+    >
+      Subscribe
+    </button>
+  </div>
+  <p class="font-body text-[0.72rem] leading-relaxed text-mist">
+    No spam. Unsubscribe any time. We handle your details in line with our
+    <a href="/privacy" class="underline underline-offset-2 hover:text-gold">privacy notice</a>.
+  </p>
+  <p
+    data-newsletter-status
+    role="status"
+    aria-live="polite"
+    class="hidden font-body text-[0.8rem]"
+  ></p>
+</form>
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('[data-newsletter]').forEach((form) => {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const status = form.querySelector<HTMLElement>('[data-newsletter-status]');
+      const input = form.querySelector<HTMLInputElement>('input[type="email"]');
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+      if (!input || !status || !button) return;
+
+      const email = input.value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        status.textContent = 'Please enter a valid email address.';
+        status.className = 'font-body text-[0.8rem] text-[#ff9c9c]';
+        input.focus();
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = 'Sending…';
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            kind: 'newsletter',
+            email,
+            startedAt: String(Date.now()),
+          }),
+        });
+        if (!response.ok) throw new Error('Request failed');
+        status.textContent = 'You are on the list. Thank you.';
+        status.className = 'font-body text-[0.8rem] text-gold';
+        form.reset();
+      } catch {
+        status.textContent = 'Something went wrong. Please email us instead.';
+        status.className = 'font-body text-[0.8rem] text-[#ff9c9c]';
+      } finally {
+        button.disabled = false;
+        button.textContent = 'Subscribe';
+      }
+    });
+  });
+</script>

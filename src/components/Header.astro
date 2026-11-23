@@ -1,0 +1,246 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import Button from './Button.astro';
+import { site, nav, whatsappLink } from '../data/site';
+import { services } from '../data/services';
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === '/' ? pathname === '/' : pathname.startsWith(href);
+
+const serviceGroups = services;
+---
+
+<header class="sticky top-0 z-40 border-b border-line-dark bg-ink/92 backdrop-blur-md">
+  <div class="container-page flex h-20 items-center justify-between gap-6">
+    <a href="/" class="flex shrink-0 items-center gap-3" aria-label={`${site.name} — home`}>
+      <Logo height={34} mark variant="dark" alt="" />
+      <span class="flex flex-col leading-none">
+        <span class="font-display text-[1.15rem] font-semibold tracking-[0.16em] text-cream">
+          BASEBOND
+        </span>
+        <span class="mt-1 font-body text-[0.6rem] font-bold uppercase tracking-[0.24em] text-gold">
+          Solutions
+        </span>
+      </span>
+    </a>
+
+    <!-- Desktop navigation -->
+    <nav aria-label="Main" class="hidden items-center gap-1 lg:flex">
+      <details class="group relative" data-services-menu>
+        <summary
+          class="flex cursor-pointer items-center gap-1 rounded-full px-3.5 py-2 font-body text-label text-cream/80 transition-colors hover:text-gold [&::-webkit-details-marker]:hidden"
+        >
+          <span>Services</span>
+          <Icon
+            name="chevron-down"
+            size={16}
+            class="transition-transform duration-200 group-open:rotate-180"
+          />
+        </summary>
+
+        <div
+          class="absolute left-1/2 top-full z-50 mt-3 w-[42rem] -translate-x-1/2 rounded-2xl border border-line-dark bg-charcoal p-3 shadow-2xl shadow-black/60"
+        >
+          <div class="grid grid-cols-2 gap-1">
+            {
+              serviceGroups.map((service) => (
+                <a
+                  href={`/services/${service.slug}`}
+                  class="flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-elevated"
+                >
+                  <span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink text-gold">
+                    <Icon name={service.icon} size={18} />
+                  </span>
+                  <span class="min-w-0">
+                    <span class="block font-body text-[0.9rem] font-semibold text-cream">
+                      {service.name}
+                    </span>
+                    <span class="mt-0.5 block font-body text-[0.78rem] leading-snug text-mist">
+                      {service.short}
+                    </span>
+                  </span>
+                </a>
+              ))
+            }
+          </div>
+          <div class="mt-2 flex items-center justify-between gap-3 border-t border-line-dark px-3 pb-1 pt-3">
+            <span class="font-body text-[0.78rem] text-mist">Not sure which you need?</span>
+            <a
+              href="/contact"
+              class="inline-flex items-center gap-1.5 font-body text-[0.8rem] font-semibold text-gold hover:underline"
+            >
+              Ask us
+              <Icon name="arrow-right" size={14} />
+            </a>
+          </div>
+        </div>
+      </details>
+
+      {
+        nav
+          .filter((item) => item.label !== 'Services')
+          .map((item) => (
+            <a
+              href={item.href}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+              class:list={[
+                'rounded-full px-3.5 py-2 font-body text-label transition-colors hover:text-gold',
+                isActive(item.href) ? 'text-gold' : 'text-cream/80',
+              ]}
+            >
+              {item.label}
+            </a>
+          ))
+      }
+    </nav>
+
+    <div class="flex items-center gap-2">
+      <Button href="/contact" size="md" class="hidden sm:inline-flex">
+        Book a consultation
+      </Button>
+
+      <button
+        type="button"
+        id="menu-open"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cream/20 text-cream lg:hidden"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        aria-label="Open menu"
+      >
+        <Icon name="menu" size={20} />
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu overlay -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 z-50 hidden bg-ink lg:hidden"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Site menu"
+>
+  <div class="container-page flex h-20 items-center justify-between">
+    <a href="/" class="flex items-center gap-3" aria-label={`${site.name} — home`}>
+      <Logo height={32} mark variant="dark" alt="" />
+      <span class="flex flex-col leading-none">
+        <span class="font-display text-[1.05rem] font-semibold tracking-[0.16em] text-cream">
+          BASEBOND
+        </span>
+        <span class="mt-1 font-body text-[0.55rem] font-bold uppercase tracking-[0.24em] text-gold">
+          Solutions
+        </span>
+      </span>
+    </a>
+    <button
+      type="button"
+      id="menu-close"
+      class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-cream/20 text-cream"
+      aria-label="Close menu"
+    >
+      <Icon name="x" size={20} />
+    </button>
+  </div>
+
+  <div class="container-page h-[calc(100%-5rem)] overflow-y-auto pb-10">
+    <nav aria-label="Mobile" class="flex flex-col divide-y divide-line-dark border-t border-line-dark">
+      <a href="/" class="py-4 font-display text-headline-sm text-cream">Home</a>
+      {
+        nav.map((item) => (
+          <a
+            href={item.href}
+            aria-current={isActive(item.href) ? 'page' : undefined}
+            class:list={[
+              'py-4 font-display text-headline-sm',
+              isActive(item.href) ? 'text-gold' : 'text-cream',
+            ]}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="mt-6 grid grid-cols-2 gap-2">
+      {
+        services.map((service) => (
+          <a
+            href={`/services/${service.slug}`}
+            class="flex items-center gap-2 rounded-xl border border-line-dark bg-charcoal p-3 font-body text-[0.8rem] font-medium text-cream"
+          >
+            <Icon name={service.icon} size={16} class="shrink-0 text-gold" />
+            <span>{service.name}</span>
+          </a>
+        ))
+      }
+    </div>
+
+    <div class="mt-8 flex flex-col gap-3">
+      <Button href="/contact" size="lg" fullWidth>Book a free consultation</Button>
+      <Button
+        href={whatsappLink()}
+        variant="outline-light"
+        size="lg"
+        icon="whatsapp"
+        iconRight={false}
+        external
+        fullWidth
+      >
+        WhatsApp us
+      </Button>
+      <p class="text-center font-body text-[0.8rem] text-mist">{site.responsePromise}</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const menu = document.getElementById('mobile-menu');
+  const openBtn = document.getElementById('menu-open');
+  const closeBtn = document.getElementById('menu-close');
+
+  const setMenu = (open: boolean) => {
+    if (!menu || !openBtn) return;
+    menu.classList.toggle('hidden', !open);
+    openBtn.setAttribute('aria-expanded', String(open));
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    if (open) {
+      (menu.querySelector('#menu-close') as HTMLElement | null)?.focus();
+    } else {
+      openBtn.focus();
+    }
+  };
+
+  openBtn?.addEventListener('click', () => setMenu(true));
+  closeBtn?.addEventListener('click', () => setMenu(false));
+
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      menu.classList.add('hidden');
+      document.documentElement.style.overflow = '';
+      openBtn?.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && menu && !menu.classList.contains('hidden')) {
+      setMenu(false);
+    }
+  });
+
+  // Services dropdown: close on outside click or Escape.
+  const servicesMenu = document.querySelector<HTMLDetailsElement>('[data-services-menu]');
+  document.addEventListener('click', (event) => {
+    if (servicesMenu?.open && !servicesMenu.contains(event.target as Node)) {
+      servicesMenu.open = false;
+    }
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && servicesMenu?.open) {
+      servicesMenu.open = false;
+      servicesMenu.querySelector('summary')?.focus();
+    }
+  });
+</script>

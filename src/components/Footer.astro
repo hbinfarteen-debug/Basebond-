@@ -1,0 +1,163 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import NewsletterForm from './NewsletterForm.astro';
+import { site, whatsappLink } from '../data/site';
+import { services } from '../data/services';
+import { articles } from '../data/articles';
+
+const year = new Date().getFullYear();
+const { credentials } = site;
+const [emailUser, emailDomain] = site.email.split('@');
+
+const legalLinks = [
+  { label: 'Privacy (POPIA)', href: '/privacy' },
+  { label: 'PAIA manual', href: '/paia' },
+  { label: 'Terms', href: '/terms' },
+  { label: 'Cookies', href: '/cookies' },
+];
+---
+
+<footer class="border-t border-line-dark bg-ink text-cream">
+  <div class="container-page pt-16 pb-28 lg:pb-10">
+    <div class="grid grid-cols-1 gap-12 border-b border-line-dark pb-12 lg:grid-cols-12 lg:gap-8">
+      <div class="flex flex-col gap-5 lg:col-span-4">
+        <a href="/" class="w-fit" aria-label={`${site.name} — home`}>
+          <Logo height={92} variant="dark" />
+        </a>
+        <p class="max-w-xs font-body text-[0.85rem] leading-relaxed text-mist">
+          {site.tagline} Registered accountants and tax practitioners serving South
+          African SMEs and private medical practices, nationwide.
+        </p>
+        <NewsletterForm class="max-w-sm" />
+      </div>
+
+      <nav aria-labelledby="footer-services" class="flex flex-col gap-3 lg:col-span-2">
+        <h2 id="footer-services" class="font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-gold">
+          Services
+        </h2>
+        {
+          services.map((service) => (
+            <a
+              href={`/services/${service.slug}`}
+              class="font-body text-[0.82rem] text-mist transition-colors hover:text-gold"
+            >
+              {service.name}
+            </a>
+          ))
+        }
+      </nav>
+
+      <nav aria-labelledby="footer-company" class="flex flex-col gap-3 lg:col-span-2">
+        <h2 id="footer-company" class="font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-gold">
+          Company
+        </h2>
+        <a href="/about" class="font-body text-[0.82rem] text-mist transition-colors hover:text-gold">About</a>
+        <a href="/industries" class="font-body text-[0.82rem] text-mist transition-colors hover:text-gold">Industries</a>
+        <a href="/pricing" class="font-body text-[0.82rem] text-mist transition-colors hover:text-gold">Pricing</a>
+        <a href="/contact" class="font-body text-[0.82rem] text-mist transition-colors hover:text-gold">Contact</a>
+        <a href="/#faq" class="font-body text-[0.82rem] text-mist transition-colors hover:text-gold">FAQ</a>
+      </nav>
+
+      <nav aria-labelledby="footer-resources" class="flex flex-col gap-3 lg:col-span-2">
+        <h2 id="footer-resources" class="font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-gold">
+          Resources
+        </h2>
+        {
+          articles.map((article) => (
+            <a
+              href={`/resources/${article.slug}`}
+              class="font-body text-[0.82rem] leading-snug text-mist transition-colors hover:text-gold"
+            >
+              {article.title}
+            </a>
+          ))
+        }
+        <a href="/resources" class="font-body text-[0.82rem] text-mist transition-colors hover:text-gold">
+          All resources
+        </a>
+      </nav>
+
+      <div class="flex flex-col gap-3 lg:col-span-2">
+        <h2 class="font-body text-[0.65rem] font-bold uppercase tracking-[0.18em] text-gold">Connect</h2>
+        <a
+          href={whatsappLink()}
+          class="inline-flex items-center gap-2 font-body text-[0.82rem] tabular-nums text-mist transition-colors hover:text-gold"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <Icon name="phone" size={14} class="shrink-0 text-gold" />
+          {site.phoneDisplay}
+        </a>
+        <a
+          href={`mailto:${site.email}`}
+          class="inline-flex items-start gap-2 break-words font-body text-[0.82rem] text-mist transition-colors hover:text-gold"
+        >
+          <Icon name="mail" size={14} class="mt-0.5 shrink-0 text-gold" />
+          <span>{emailUser}@<wbr />{emailDomain}</span>
+        </a>
+        <p class="inline-flex items-start gap-2 font-body text-[0.82rem] text-mist">
+          <Icon name="map-pin" size={14} class="mt-0.5 shrink-0 text-gold" />
+          <span>{site.location.city}, {site.location.province}<br />{site.location.country}</span>
+        </p>
+        <p class="inline-flex items-start gap-2 font-body text-[0.82rem] text-mist">
+          <Icon name="clock" size={14} class="mt-0.5 shrink-0 text-gold" />
+          <span>{site.hours}</span>
+        </p>
+        <a
+          href={whatsappLink()}
+          class="mt-1 inline-flex w-fit items-center gap-2 rounded-full border border-gold/40 bg-charcoal px-4 py-2 font-body text-[0.78rem] font-semibold text-gold transition-colors hover:bg-elevated"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          <Icon name="whatsapp" size={15} />
+          WhatsApp
+        </a>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-4 pt-8 font-body text-[0.78rem] text-mist">
+      <p class="max-w-3xl leading-relaxed">
+        {
+          credentials.verified ? (
+            <>
+              {site.legalName}
+              {credentials.companyReg && ` · Company reg. ${credentials.companyReg}`}
+              {credentials.vatRegistered && credentials.vat && ` · VAT ${credentials.vat}`}
+              {credentials.body && ` · Registered with ${credentials.body}${credentials.bodyNumber ? ` (${credentials.bodyNumber})` : ''}`}
+              {credentials.taxPractitioner && ` · SARS tax practitioner ${credentials.taxPractitioner}`}
+            </>
+          ) : (
+            <>
+              {site.legalName} — registered accountants and tax practitioners. Company,
+              professional-body and SARS tax practitioner registration details are
+              available on request.
+            </>
+          )
+        }
+      </p>
+      <p class="max-w-3xl leading-relaxed">
+        The information on this website is general in nature and does not constitute
+        tax, accounting or legal advice. Engage a practitioner before acting on it.
+      </p>
+    </div>
+
+    <div class="mt-8 flex flex-wrap items-center justify-between gap-4 border-t border-line-dark pt-6">
+      <span class="font-body text-[0.78rem] text-mist">
+        © {year} {site.legalName}. All rights reserved.
+      </span>
+      <div class="flex flex-wrap items-center gap-x-5 gap-y-2">
+        {
+          legalLinks.map((link) => (
+            <a
+              href={link.href}
+              class="font-body text-[0.78rem] text-mist transition-colors hover:text-gold"
+            >
+              {link.label}
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+interface Props {
+  title: string;
+  heading: string;
+  updated: string;
+  intro?: string;
+  path: string;
+  description: string;
+}
+
+const { title, heading, updated, intro, path, description } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} path={path}>
+  <section class="border-b border-line-dark bg-gradient-to-b from-ink to-charcoal py-14 text-cream">
+    <div class="container-page">
+      <nav aria-label="Breadcrumb" class="mb-5 font-body text-[0.78rem] text-mist">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="hover:text-gold">Home</a></li>
+          <li aria-hidden="true" class="text-mist/40">/</li>
+          <li><span class="text-cream">{heading}</span></li>
+        </ol>
+      </nav>
+      <h1 class="font-display text-display-lg text-cream">{heading}</h1>
+      <p class="mt-3 font-body text-[0.82rem] text-mist">Last updated: {updated}</p>
+      {intro && <p class="mt-4 max-w-2xl font-body text-body-md text-mist">{intro}</p>}
+    </div>
+  </section>
+
+  <section class="bg-cream py-14 text-ink lg:py-20">
+    <div class="container-page">
+      <div class="prose-article max-w-3xl">
+        <slot />
+      </div>
+      <p class="mt-12 max-w-3xl rounded-xl border border-line-light bg-tint p-5 font-body text-[0.8rem] leading-relaxed text-slate">
+        This document is a working draft prepared for the website. It should be reviewed
+        by a South African attorney before launch, and updated whenever our processing
+        activities change.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

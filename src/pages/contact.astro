@@ -1,0 +1,218 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import ContactForm from '../components/ContactForm.astro';
+import FAQList from '../components/FAQList.astro';
+import { site, whatsappLink } from '../data/site';
+import { faqs } from '../data/faqs';
+
+const contactFaqs = faqs.slice(0, 4);
+
+const contactChannels = [
+  {
+    icon: 'whatsapp',
+    label: 'WhatsApp',
+    value: site.phoneDisplay,
+    href: whatsappLink('Hi Basebond Solutions, I would like to book a free consultation.'),
+    note: 'Usually the fastest way to reach us',
+    external: true,
+    accent: true,
+  },
+  {
+    icon: 'mail',
+    label: 'Email',
+    value: site.email,
+    href: `mailto:${site.email}`,
+    note: 'Best for documents and detailed queries',
+    external: false,
+  },
+  {
+    icon: 'phone',
+    label: 'Phone',
+    value: site.phoneDisplay,
+    href: `tel:${site.phoneHref}`,
+    note: site.hours,
+    external: false,
+  },
+];
+---
+
+<BaseLayout
+  title="Contact Basebond Solutions — Book a Free Consultation"
+  description="Book a free 20-minute consultation with a registered accountant and tax practitioner. WhatsApp, email or send an enquiry — we reply within one business day."
+  path="/contact"
+>
+  <section class="relative overflow-hidden bg-gradient-to-b from-ink via-charcoal to-ink py-16 text-cream lg:py-24">
+    <!-- Cinematic South African Consultation Background Image -->
+    <div class="pointer-events-none absolute inset-0 z-0">
+      <img
+        src="/images/contact-hero.jpg"
+        alt="South African business owners during a financial consultation review"
+        class="h-full w-full object-cover object-[center_35%] opacity-25 mix-blend-luminosity filter contrast-125"
+        loading="eager"
+        fetchpriority="high"
+      />
+      <!-- Gradients for seamless blending into #0b0b0c and ensuring maximum text legibility -->
+      <div class="absolute inset-0 bg-gradient-to-r from-ink via-ink/90 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-ink via-transparent to-ink/75"></div>
+      <div class="absolute inset-0 bg-radial from-gold/10 via-transparent to-transparent"></div>
+    </div>
+
+    <!-- Basebond Triangle Watermark -->
+    <div class="pointer-events-none absolute -right-32 -top-24 h-[420px] w-[420px] opacity-[0.08]" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" class="h-full w-full">
+        <polygon points="100,10 190,180 10,180" stroke="#F5B800" stroke-width="1.2"></polygon>
+      </svg>
+    </div>
+
+    <div class="container-page relative z-10">
+      <nav aria-label="Breadcrumb" class="mb-6 font-body text-[0.78rem] text-mist">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="hover:text-gold">Home</a></li>
+          <li aria-hidden="true" class="text-mist/40">/</li>
+          <li><span class="text-cream">Contact</span></li>
+        </ol>
+      </nav>
+
+      <div class="max-w-2xl">
+        <span class="mb-3 block font-body text-eyebrow uppercase text-gold">Get in touch</span>
+        <h1 class="font-display text-display-lg text-cream">
+          Start with a free 20-minute review.
+        </h1>
+        <p class="mt-4 font-body text-body-lg text-mist">
+          Tell us what is happening with your books, your SARS standing or your claims.
+          You will get a straight answer on what is urgent, what can wait, and what it
+          would cost — before you commit to anything.
+        </p>
+        <p class="mt-4 inline-flex items-center gap-2 font-body text-[0.85rem] text-gold">
+          <Icon name="clock" size={15} />
+          {site.responsePromise}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream py-14 text-ink lg:py-20">
+    <div class="container-page grid grid-cols-1 gap-10 lg:grid-cols-12">
+      <!-- Details column -->
+      <div class="flex flex-col gap-5 lg:col-span-5">
+        {
+          contactChannels.map((channel) => (
+            <a
+              href={channel.href}
+              rel={channel.external ? 'noopener noreferrer' : undefined}
+              target={channel.external ? '_blank' : undefined}
+              class:list={[
+                'group flex items-start gap-4 rounded-2xl border p-5 transition-colors',
+                channel.accent
+                  ? 'border-gold/50 bg-ink text-cream hover:border-gold'
+                  : 'border-line-light bg-card hover:border-gold/60',
+              ]}
+            >
+              <span
+                class:list={[
+                  'flex h-11 w-11 shrink-0 items-center justify-center rounded-full',
+                  channel.accent ? 'bg-gold text-ink' : 'bg-ink text-gold',
+                ]}
+              >
+                <Icon name={channel.icon} size={19} />
+              </span>
+              <span class="min-w-0">
+                <span
+                  class:list={[
+                    'block font-body text-[0.68rem] font-bold uppercase tracking-[0.14em]',
+                    channel.accent ? 'text-gold' : 'text-slate',
+                  ]}
+                >
+                  {channel.label}
+                </span>
+                <span
+                  class:list={[
+                    'mt-1 block break-words font-body text-[0.95rem] font-semibold',
+                    channel.accent ? 'text-cream' : 'text-ink',
+                  ]}
+                >
+                  {channel.value}
+                </span>
+                <span
+                  class:list={[
+                    'mt-1 block font-body text-[0.78rem]',
+                    channel.accent ? 'text-mist' : 'text-slate',
+                  ]}
+                >
+                  {channel.note}
+                </span>
+              </span>
+            </a>
+          ))
+        }
+
+        <div class="rounded-2xl border border-line-light bg-card p-5">
+          <h2 class="mb-3 flex items-center gap-2 font-body text-[0.9rem] font-semibold text-ink">
+            <Icon name="map-pin" size={16} class="text-gold-deep" />
+            Where we work
+          </h2>
+          <p class="font-body text-[0.85rem] leading-relaxed text-slate">
+            Based in {site.location.city}, {site.location.province}. We serve clients across
+            all nine provinces remotely, using cloud accounting and secure document sharing.
+            In-person meetings can be arranged where they are genuinely useful.
+          </p>
+          <div class="mt-4 flex flex-col gap-2 border-t border-line-light pt-4">
+            <span class="flex items-center gap-2 font-body text-[0.82rem] text-ink">
+              <Icon name="clock" size={14} class="text-gold-deep" />
+              {site.hours}
+            </span>
+            <span class="flex items-center gap-2 font-body text-[0.82rem] text-ink">
+              <Icon name="globe" size={14} class="text-gold-deep" />
+              Remote-first, nationwide
+            </span>
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-line-light bg-tint p-5">
+          <h2 class="mb-3 font-body text-[0.9rem] font-semibold text-ink">What happens next</h2>
+          <ol class="flex flex-col gap-3">
+            {
+              [
+                'We read your enquiry and confirm receipt by email.',
+                'A practitioner replies within one business day.',
+                'We book a 20-minute call at a time that suits you.',
+                'You receive a written scope and fixed quote.',
+              ].map((step, index) => (
+                <li class="flex items-start gap-3">
+                  <span class="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ink font-mono text-[0.65rem] text-gold">
+                    {index + 1}
+                  </span>
+                  <span class="font-body text-[0.84rem] leading-relaxed text-slate">{step}</span>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </div>
+
+      <!-- Form column -->
+      <div class="lg:col-span-7">
+        <div class="rounded-2xl border border-line-light bg-card p-6 shadow-sm sm:p-8">
+          <h2 class="font-display text-[1.6rem] font-semibold text-ink">Send us an enquiry</h2>
+          <p class="mt-1.5 mb-6 font-body text-[0.88rem] text-slate">
+            Six fields, no obligation. If you would rather talk, use WhatsApp above.
+          </p>
+          <ContactForm />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-line-light bg-tint py-14 text-ink lg:py-20">
+    <div class="container-page grid grid-cols-1 gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-4">
+        <span class="mb-3 block font-body text-eyebrow uppercase text-gold-deep">Before you ask</span>
+        <h2 class="font-display text-headline-lg text-ink">A few quick answers.</h2>
+      </div>
+      <div class="lg:col-span-8">
+        <FAQList faqs={contactFaqs} />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+import Button from '../components/Button.astro';
+import CTABand from '../components/CTABand.astro';
+import IndustryHeroVisual from '../components/IndustryHeroVisual.astro';
+import { industries } from '../data/industries';
+import { serviceBySlug } from '../data/services';
+---
+
+<BaseLayout
+  title="Industries We Serve — Basebond Solutions | South Africa"
+  description="Sector-specific accounting, tax, payroll and billing for medical practices, retail, construction, trades, consultants, hospitality, transport and start-ups in South Africa."
+  path="/industries"
+>
+  <section class="relative overflow-hidden bg-gradient-to-b from-ink to-charcoal py-16 text-cream lg:py-20">
+    <div class="pointer-events-none absolute -right-32 -top-24 h-[420px] w-[420px] opacity-[0.08]" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" class="h-full w-full">
+        <polygon points="100,10 190,180 10,180" stroke="#F5B800" stroke-width="1.2"></polygon>
+      </svg>
+    </div>
+    <div class="container-page relative z-10">
+      <nav aria-label="Breadcrumb" class="mb-6 font-body text-[0.78rem] text-mist">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="hover:text-gold">Home</a></li>
+          <li aria-hidden="true" class="text-mist/40">/</li>
+          <li><span class="text-cream">Industries</span></li>
+        </ol>
+      </nav>
+
+      <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-8">
+        <div class="lg:col-span-6 xl:col-span-6">
+          <span class="mb-3 block font-body text-eyebrow uppercase text-gold">Sector expertise</span>
+          <h1 class="font-display text-display-lg text-cream">
+            The same rules, applied to how your industry actually works.
+          </h1>
+          <p class="mt-4 font-body text-body-lg text-mist">
+            A construction business and a medical practice share a tax code but not a
+            month-end. We structure reporting and compliance around the pattern your sector
+            runs on.
+          </p>
+          <div class="mt-7">
+            <Button href="/contact" size="lg" icon="arrow-right">Book a free consultation</Button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-center lg:col-span-6 xl:col-span-6">
+          <IndustryHeroVisual />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream py-16 text-ink lg:py-24">
+    <div class="container-page">
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+        {
+          industries.map((industry) => (
+            <article class="flex flex-col gap-4 rounded-2xl border border-line-light bg-card p-7">
+              <div class="flex items-center gap-3">
+                <span class="flex h-11 w-11 items-center justify-center rounded-full bg-ink text-gold">
+                  <Icon name={industry.icon} size={19} />
+                </span>
+                <div>
+                  <h2 class="font-display text-[1.2rem] font-semibold text-ink">{industry.name}</h2>
+                  <p class="font-body text-[0.78rem] text-gold-deep">{industry.line}</p>
+                </div>
+              </div>
+
+              <p class="font-body text-[0.9rem] leading-relaxed text-slate">{industry.detail}</p>
+
+              <div class="mt-auto flex flex-wrap gap-2 pt-2">
+                {industry.services.map((slug) => {
+                  const service = serviceBySlug(slug);
+                  if (!service) return null;
+                  return (
+                    <a
+                      href={`/services/${service.slug}`}
+                      class="inline-flex items-center gap-1.5 rounded-full border border-line-light bg-tint px-3 py-1.5 font-body text-[0.75rem] font-semibold text-ink transition-colors hover:border-gold hover:text-gold-deep"
+                    >
+                      <Icon name={service.icon} size={12} />
+                      {service.name}
+                    </a>
+                  );
+                })}
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      <div class="mt-12 rounded-2xl border border-line-light bg-tint p-7">
+        <h2 class="font-display text-headline-md text-ink">Not on the list?</h2>
+        <p class="mt-2 max-w-2xl font-body text-[0.92rem] leading-relaxed text-slate">
+          These are the sectors we work with most, not the only ones. If your business has
+          employees, VAT registrations or a year end, the work is broadly the same — the
+          difference is in the reporting we build around it.
+        </p>
+        <div class="mt-5">
+          <Button href="/contact" variant="dark" size="md" icon="arrow-right">Ask about your sector</Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

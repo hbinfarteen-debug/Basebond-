@@ -1,0 +1,139 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import Button from '../../components/Button.astro';
+import CTABand from '../../components/CTABand.astro';
+import { articles } from '../../data/articles';
+
+export function getStaticPaths() {
+  return articles.map((article) => ({
+    params: { slug: article.slug },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+
+const others = articles.filter((a) => a.slug !== article.slug).slice(0, 2);
+
+const formatDate = (value: string) =>
+  new Date(value).toLocaleDateString('en-ZA', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric',
+  });
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: article.title,
+  description: article.description,
+  datePublished: article.date,
+  dateModified: article.date,
+  author: { '@type': 'Organization', name: 'Basebond Solutions' },
+  publisher: { '@type': 'Organization', name: 'Basebond Solutions' },
+  mainEntityOfPage: `https://basebondsolutions.co.za/resources/${article.slug}`,
+};
+---
+
+<BaseLayout
+  title={`${article.title} | Basebond Solutions`}
+  description={article.description}
+  path={`/resources/${article.slug}`}
+  schema={articleSchema}
+>
+  <section class="bg-gradient-to-b from-ink to-charcoal py-14 text-cream lg:py-16">
+    <div class="container-page">
+      <nav aria-label="Breadcrumb" class="mb-6 font-body text-[0.78rem] text-mist">
+        <ol class="flex flex-wrap items-center gap-2">
+          <li><a href="/" class="hover:text-gold">Home</a></li>
+          <li aria-hidden="true" class="text-mist/40">/</li>
+          <li><a href="/resources" class="hover:text-gold">Resources</a></li>
+          <li aria-hidden="true" class="text-mist/40">/</li>
+          <li><span class="text-cream">{article.category}</span></li>
+        </ol>
+      </nav>
+
+      <div class="max-w-3xl">
+        <div class="mb-4 flex items-center gap-3">
+          <span class="rounded-full border border-gold/40 bg-ink px-2.5 py-1 font-body text-[0.65rem] font-bold uppercase tracking-[0.12em] text-gold">
+            {article.category}
+          </span>
+          <span class="font-body text-[0.78rem] text-mist">{article.readingTime}</span>
+        </div>
+        <h1 class="font-display text-display-lg text-cream">{article.title}</h1>
+        <p class="mt-4 font-body text-body-lg text-mist">{article.description}</p>
+        <p class="mt-4 font-body text-[0.78rem] text-mist">
+          Published <time datetime={article.date}>{formatDate(article.date)}</time>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream py-14 text-ink lg:py-20">
+    <div class="container-page grid grid-cols-1 gap-12 lg:grid-cols-12">
+      <article class="lg:col-span-8">
+        <div class="prose-article" set:html={article.body} />
+
+        <div class="mt-12 rounded-2xl border border-line-light bg-tint p-6">
+          <h2 class="font-display text-[1.3rem] font-semibold text-ink">Need this handled?</h2>
+          <p class="mt-2 font-body text-[0.9rem] leading-relaxed text-slate">
+            We prepare, file and track these deadlines as part of a monthly retainer, and
+            respond to SARS and CIPC correspondence on your behalf.
+          </p>
+          <div class="mt-5 flex flex-wrap gap-3">
+            <Button href="/contact" variant="dark" size="md" icon="arrow-right">
+              Book a free consultation
+            </Button>
+            <Button href="/services" variant="ghost" size="md" icon="arrow-right">
+              View services
+            </Button>
+          </div>
+        </div>
+
+        <p class="mt-8 font-body text-[0.78rem] leading-relaxed text-slate">
+          This article is general information, not tax or legal advice. Confirm current
+          deadlines on SARS eFiling or CIPC before relying on them.
+        </p>
+      </article>
+
+      <aside class="lg:col-span-4">
+        <div class="lg:sticky lg:top-28">
+          <h2 class="mb-4 font-body text-[0.65rem] font-bold uppercase tracking-[0.16em] text-gold-deep">
+            More guides
+          </h2>
+          <div class="flex flex-col gap-3">
+            {
+              others.map((item) => (
+                <a
+                  href={`/resources/${item.slug}`}
+                  class="group rounded-xl border border-line-light bg-card p-5 transition-colors hover:border-gold/60"
+                >
+                  <span class="font-body text-[0.68rem] font-bold uppercase tracking-[0.12em] text-slate">
+                    {item.category}
+                  </span>
+                  <span class="mt-1.5 block font-body text-[0.92rem] font-semibold leading-snug text-ink group-hover:text-gold-deep">
+                    {item.title}
+                  </span>
+                  <span class="mt-2 inline-flex items-center gap-1.5 font-body text-[0.78rem] text-slate">
+                    {item.readingTime}
+                    <Icon name="arrow-right" size={13} />
+                  </span>
+                </a>
+              ))
+            }
+            <a
+              href="/resources"
+              class="inline-flex items-center gap-1.5 px-1 font-body text-[0.82rem] font-semibold text-gold-deep hover:underline"
+            >
+              All resources
+              <Icon name="arrow-right" size={14} />
+            </a>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

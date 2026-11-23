@@ -1,0 +1,107 @@
+---
+import LegalShell from '../components/LegalShell.astro';
+import { site } from '../data/site';
+---
+
+<LegalShell
+  title="Privacy Notice (POPIA) — Basebond Solutions"
+  heading="Privacy Notice"
+  updated="21 November 2026"
+  path="/privacy"
+  description="How Basebond Solutions collects, uses and protects personal information in line with the Protection of Personal Information Act, 2013."
+  intro="This notice explains what personal information we collect, why we collect it, and the rights you have under the Protection of Personal Information Act 4 of 2013 (POPIA)."
+>
+  <h2>1. Who is responsible</h2>
+  <p>
+    {site.legalName} is the responsible party for the personal information described in
+    this notice. Our Information Officer can be reached at
+    <a href={`mailto:${site.email}`}>{site.email}</a>.
+  </p>
+
+  <h2>2. What we collect</h2>
+  <ul>
+    <li><strong>Enquiry details</strong> — your name, business name, email address, phone number, the service you are interested in and the message you send us.</li>
+    <li><strong>Newsletter details</strong> — your email address, if you choose to subscribe.</li>
+    <li><strong>Client records</strong> — where you become a client, the financial, payroll, tax and (for practice clients) patient-billing information necessary to deliver the service.</li>
+    <li><strong>Technical information</strong> — standard server logs generated when you visit the site, including IP address, browser type and pages requested.</li>
+  </ul>
+
+  <h2>3. Why we process it</h2>
+  <ul>
+    <li>To respond to your enquiry and provide a quotation.</li>
+    <li>To deliver accounting, tax, payroll, billing and related services you engage us for.</li>
+    <li>To meet our obligations under tax, company and anti-money-laundering legislation.</li>
+    <li>To send the newsletter you asked for, which you can unsubscribe from at any time.</li>
+    <li>To keep the website secure and diagnose technical problems.</li>
+  </ul>
+
+  <h2>4. Lawful basis</h2>
+  <p>
+    We process enquiry and client information because it is necessary to perform a
+    contract with you or to take steps at your request before entering into one. We
+    process records required by tax and company law because we have a legal obligation
+    to do so. We send the newsletter on the basis of your consent, which you may withdraw
+    at any time.
+  </p>
+
+  <h2>5. Who we share it with</h2>
+  <p>
+    We do not sell personal information. We share it only where necessary: with SARS and
+    CIPC where a filing requires it, with your accounting or practice-management software
+    provider, with our email delivery provider, and with professional advisers where
+    required. Where a service provider processes information on our behalf, we require
+    appropriate confidentiality and security commitments.
+  </p>
+
+  <h2>6. Cross-border processing</h2>
+  <p>
+    Some of our service providers, including our website host and email delivery
+    provider, may process information on servers outside South Africa. Where this
+    happens, we rely on the protections permitted under section 72 of POPIA, including
+    contractual safeguards and the provider's security commitments.
+  </p>
+
+  <h2>7. How long we keep it</h2>
+  <p>
+    Enquiry records are kept for as long as needed to deal with the enquiry and any
+    follow-up. Client records are retained for the periods required by tax and company
+    legislation, which is generally five years from the end of the relevant tax year,
+    and longer where a legal dispute or audit is pending. Newsletter details are kept
+    until you unsubscribe.
+  </p>
+
+  <h2>8. Your rights</h2>
+  <p>Under POPIA you may ask us to:</p>
+  <ul>
+    <li>confirm whether we hold personal information about you, and provide a copy;</li>
+    <li>correct or delete information that is inaccurate, irrelevant, excessive or unlawfully obtained;</li>
+    <li>stop processing your information for direct marketing;</li>
+    <li>withdraw consent where processing is based on consent.</li>
+  </ul>
+  <p>
+    Requests should be sent to <a href={`mailto:${site.email}`}>{site.email}</a>. We may
+    ask you to verify your identity before acting on a request. If you believe we have
+    not handled your information lawfully, you may complain to the Information Regulator
+    (South Africa) at <a href="https://inforegulator.org.za" rel="noopener noreferrer" target="_blank">inforegulator.org.za</a>.
+  </p>
+
+  <h2>9. Security</h2>
+  <p>
+    Access to client information is limited to the practitioners assigned to your file.
+    Documents are stored in access-controlled cloud folders, transmitted over encrypted
+    connections, and handled under written confidentiality undertakings. We review access
+    when a practitioner leaves an engagement.
+  </p>
+
+  <h2>10. Cookies</h2>
+  <p>
+    The site uses only what is necessary to function. See our
+    <a href="/cookies">cookie notice</a> for detail.
+  </p>
+
+  <h2>11. Changes</h2>
+  <p>
+    We may update this notice when our processing activities change. The date at the top
+    of this page shows when it was last revised.
+  </p>
+</LegalShell>

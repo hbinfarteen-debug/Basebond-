@@ -1,0 +1,55 @@
+---
+import Icon from './Icon.astro';
+import { testimonials } from '../data/testimonials';
+---
+
+{
+  testimonials.length > 0 && (
+    <section class="bg-ink py-20 text-cream lg:py-28">
+      <div class="container-page">
+        <div class="mb-12 max-w-2xl">
+          <span class="mb-3 block font-body text-eyebrow uppercase text-gold">Client feedback</span>
+          <h2 class="font-display text-headline-lg text-cream">
+            What clients say about working with us
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {testimonials.map((item) => (
+            <figure class="flex flex-col justify-between gap-6 rounded-2xl border border-line-dark bg-charcoal p-8">
+              <blockquote class="font-body text-[0.98rem] leading-relaxed text-cream">
+                <span class="mb-3 block font-display text-4xl leading-none text-gold" aria-hidden="true">
+                  “
+                </span>
+                {item.quote}
+              </blockquote>
+              <figcaption class="flex items-center gap-3 border-t border-line-dark pt-4">
+                {item.photo ? (
+                  <img
+                    src={item.photo}
+                    alt=""
+                    width="40"
+                    height="40"
+                    loading="lazy"
+                    decoding="async"
+                    class="h-10 w-10 rounded-full object-cover"
+                  />
+                ) : (
+                  <span class="flex h-10 w-10 items-center justify-center rounded-full bg-elevated text-gold">
+                    <Icon name="users" size={17} />
+                  </span>
+                )}
+                <span>
+                  <span class="block font-body text-[0.9rem] font-semibold text-cream">
+                    {item.name}
+                  </span>
+                  <span class="block font-body text-[0.8rem] text-mist">{item.role}</span>
+                </span>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

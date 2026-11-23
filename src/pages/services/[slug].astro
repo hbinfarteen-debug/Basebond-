@@ -1,0 +1,205 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Icon from '../../components/Icon.astro';
+import Button from '../../components/Button.astro';
+import FAQList from '../../components/FAQList.astro';
+import ContactForm from '../../components/ContactForm.astro';
+import { services } from '../../data/services';
+import { whatsappLink } from '../../data/site';
+
+export function getStaticPaths() {
+  return services.map((service) => ({
+    params: { slug: service.slug },
+    props: { service },
+  }));
+}
+
+const { service } = Astro.props;
+
+const related = services.filter((s) => s.slug !== service.slug).slice(0, 3);
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: service.faqs.map((faq: { q: string; a: string }) => ({
+    '@type': 'Question',
+    name: faq.q,
+    acceptedAnswer: { '@type': 'Answer', text: faq.a },
+  })),
+};
+
+const serviceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: service.name,
+  serviceType: service.name,
+  description: service.lede,
+  provider: { '@type': 'AccountingService', name: 'Basebond Solutions' },
+  areaServed: { '@type': 'Country', name: 'South Africa' },
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://basebondsolutions.co.za/' },
+    { '@type': 'ListItem', position: 2, name: 'Services', item: 'https://basebondsolutions.co.za/services' },
+    {
+      '@type': 'ListItem',
+      position: 3,
+      name: service.name,
+      item: `https://basebondsolutions.co.za/services/${service.slug}`,
+    },
+  ],
+};
+---
+
+<BaseLayout
+  title={`${service.name} in South Africa — Basebond Solutions`}
+  description={service.lede}
+  path={`/services/${service.slug}`}
+  schema={[serviceSchema, faqSchema, breadcrumbSchema]}
+>
+  <section class="relative overflow-hidden bg-gradient-to-b from-ink to-charcoal py-16 text-cream lg:py-20">
+    <div class="pointer-events-none absolute -right-32 -top-24 h-[420px] w-[420px] opacity-[0.08]" aria-hidden="true">
+      <svg viewBox="0 0 200 200" fill="none" class="h-full w-full">
+        <polygon points="100,10 190,180 10,180" stroke="#F5B800" stroke-width="1.2"></polygon>
+      </svg>
+    </div>
+
+    <div class="container-page relative z-10 grid grid-cols-1 gap-10 lg:grid-cols-12">
+      <div class="lg:col-span-8">
+        <nav aria-label="Breadcrumb" class="mb-6 font-body text-[0.78rem] text-mist">
+          <ol class="flex flex-wrap items-center gap-2">
+            <li><a href="/" class="hover:text-gold">Home</a></li>
+            <li aria-hidden="true" class="text-mist/40">/</li>
+            <li><a href="/services" class="hover:text-gold">Services</a></li>
+            <li aria-hidden="true" class="text-mist/40">/</li>
+            <li><span class="text-cream">{service.name}</span></li>
+          </ol>
+        </nav>
+
+        <div class="mb-5 flex items-center gap-3">
+          <span class="flex h-11 w-11 items-center justify-center rounded-full bg-gold text-ink">
+            <Icon name={service.icon} size={20} />
+          </span>
+          <span class="font-body text-eyebrow uppercase text-gold">Service</span>
+        </div>
+
+        <h1 class="font-display text-display-lg text-cream">{service.name}</h1>
+        <p class="mt-4 max-w-2xl font-body text-body-lg text-mist">{service.lede}</p>
+
+        <div class="mt-7 flex flex-wrap gap-3">
+          <Button href="#enquire" size="lg" icon="arrow-right">Enquire about this service</Button>
+          <Button
+            href={whatsappLink(`Hi Basebond Solutions, I would like to know more about ${service.name.toLowerCase()}.`)}
+            variant="outline-light"
+            size="lg"
+            icon="whatsapp"
+            iconRight={false}
+            external
+          >
+            WhatsApp us
+          </Button>
+        </div>
+      </div>
+
+      <div class="lg:col-span-4">
+        <div class="rounded-2xl border border-line-dark bg-charcoal p-6">
+          <span class="mb-3 block font-body text-[0.65rem] font-bold uppercase tracking-[0.16em] text-gold">
+            Who this is for
+          </span>
+          <p class="font-body text-[0.9rem] leading-relaxed text-cream">{service.audience}</p>
+          <div class="mt-5 border-t border-line-dark pt-5">
+            <span class="mb-3 block font-body text-[0.65rem] font-bold uppercase tracking-[0.16em] text-gold">
+              What changes
+            </span>
+            <ul class="flex flex-col gap-2">
+              {
+                service.outcomes.map((outcome: string) => (
+                  <li class="flex items-start gap-2">
+                    <Icon name="check" size={14} strokeWidth={2.6} class="mt-1 shrink-0 text-gold" />
+                    <span class="font-body text-[0.85rem] leading-relaxed text-mist">{outcome}</span>
+                  </li>
+                ))
+              }
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-cream py-16 text-ink lg:py-24">
+    <div class="container-page grid grid-cols-1 gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-7">
+        <div class="flex flex-col gap-4">
+          {
+            service.intro.map((paragraph: string) => (
+              <p class="font-body text-body-md text-slate">{paragraph}</p>
+            ))
+          }
+        </div>
+
+        <h2 class="mt-12 font-display text-headline-md text-ink">What's included</h2>
+        <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+          {
+            service.includes.map((item: { title: string; body: string }) => (
+              <div class="rounded-xl border border-line-light bg-card p-5">
+                <h3 class="font-body text-[0.92rem] font-semibold text-ink">{item.title}</h3>
+                <p class="mt-1.5 font-body text-[0.85rem] leading-relaxed text-slate">{item.body}</p>
+              </div>
+            ))
+          }
+        </div>
+
+        <h2 class="mt-14 font-display text-headline-md text-ink">Questions we get asked</h2>
+        <div class="mt-6">
+          <FAQList faqs={service.faqs} />
+        </div>
+      </div>
+
+      <div id="enquire" class="lg:col-span-5">
+        <div class="lg:sticky lg:top-28">
+          <div class="rounded-2xl border border-line-light bg-card p-6 shadow-sm">
+            <h2 class="font-display text-[1.4rem] font-semibold text-ink">
+              Enquire about {service.name.toLowerCase()}
+            </h2>
+            <p class="mt-1.5 font-body text-[0.85rem] text-slate">
+              Tell us where things stand. We reply within one business day.
+            </p>
+            <div class="mt-6">
+              <ContactForm defaultService={service.name} compact />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-line-light bg-tint py-16 text-ink lg:py-20">
+    <div class="container-page">
+      <h2 class="font-display text-headline-md text-ink">Often paired with</h2>
+      <div class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
+        {
+          related.map((item) => (
+            <a
+              href={`/services/${item.slug}`}
+              class="group flex items-start gap-3 rounded-xl border border-line-light bg-card p-5 transition-colors hover:border-gold/60"
+            >
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink text-gold">
+                <Icon name={item.icon} size={17} />
+              </span>
+              <span>
+                <span class="block font-body text-[0.9rem] font-semibold text-ink">{item.name}</span>
+                <span class="mt-1 block font-body text-[0.8rem] leading-relaxed text-slate">
+                  {item.short}
+                </span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,32 @@
+---
+import Icon from './Icon.astro';
+import { site, whatsappLink } from '../data/site';
+---
+
+<div class="border-b border-line-dark bg-ink">
+  <div class="container-page flex flex-wrap items-center justify-between gap-x-6 gap-y-1.5 py-2.5">
+    <div class="flex flex-wrap items-center gap-x-5 gap-y-1.5">
+      <a
+        href={whatsappLink()}
+        class="inline-flex items-center gap-2 font-body text-[0.8rem] text-mist transition-colors hover:text-gold"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <Icon name="phone" size={14} class="text-gold" />
+        <span class="tabular-nums">{site.phoneDisplay}</span>
+      </a>
+      <span class="hidden text-cream/20 sm:inline" aria-hidden="true">|</span>
+      <a
+        href={`mailto:${site.email}`}
+        class="hidden items-center gap-2 font-body text-[0.8rem] text-mist transition-colors hover:text-gold sm:inline-flex"
+      >
+        <Icon name="mail" size={14} class="text-gold" />
+        <span>{site.email}</span>
+      </a>
+    </div>
+    <div class="hidden items-center gap-2 font-body text-[0.75rem] text-mist md:flex">
+      <Icon name="globe" size={14} class="text-gold" />
+      <span>Remote-first across South Africa</span>
+    </div>
+  </div>
+</div>
